@@ -1,0 +1,196 @@
+.final-cta {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(90% 120% at 50% 110%, rgba(212, 175, 55, 0.13) 0%, rgba(10, 10, 11, 0) 60%),
+    linear-gradient(to bottom, var(--obsidian) 0%, #14100a 58%, #17120a 100%);
+  text-align: center;
+}
+.cta-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -34%;
+  width: 120vw;
+  height: 60vh;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(229, 169, 59, 0.16) 0%, transparent 70%);
+  filter: blur(46px);
+  pointer-events: none;
+}
+
+/* Particles */
+.cta-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.cta-particle {
+  position: absolute;
+  bottom: -4px;
+  border-radius: 50%;
+  background: rgba(229, 169, 59, 0.75);
+  box-shadow: 0 0 8px 1px rgba(229, 169, 59, 0.5);
+  opacity: 0;
+  animation: particle-rise linear infinite;
+}
+@keyframes particle-rise {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  12% { opacity: 0.7; }
+  85% { opacity: 0.35; }
+  100% { transform: translate3d(14px, -86vh, 0); opacity: 0; }
+}
+
+.cta-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cta-inner .kicker::after {
+  display: none;
+}
+
+.cta-h2 {
+  max-width: 16ch;
+  text-align: center;
+}
+.cta-h-sans {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: 0.92em;
+}
+.cta-h-serif {
+  display: inline-block;
+  font-size: 1.08em;
+}
+.cta-247 {
+  font-style: italic;
+  font-size: 1.14em;
+  padding-inline: 0.06em;
+}
+
+.cta-sub {
+  max-width: 54ch;
+  margin-top: 1.5rem;
+  color: var(--silver);
+  font-weight: 300;
+  line-height: 1.8;
+  font-size: clamp(0.98rem, 1.4vw, 1.12rem);
+}
+
+/* ---------- Phone ---------- */
+.cta-phone-row {
+  margin-top: clamp(2rem, 4.5vh, 3rem);
+}
+.cta-phone {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: inherit;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+.cta-phone:hover {
+  background: rgba(229, 169, 59, 0.06);
+}
+.cta-phone:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 4px;
+}
+.cta-phone-num {
+  font-size: clamp(2.1rem, 6vw, 4.2rem);
+  font-style: italic;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  background: linear-gradient(180deg, var(--parchment) 30%, rgba(243, 244, 246, 0.72));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 60px rgba(229, 169, 59, 0.18);
+}
+.cta-phone:hover .cta-phone-num {
+  text-shadow:
+    0 0 30px rgba(229, 169, 59, 0.45),
+    0 0 90px rgba(229, 169, 59, 0.2);
+}
+.cta-copy-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--amber);
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+.cta-phone:hover .cta-copy-hint {
+  opacity: 1;
+}
+
+/* ---------- Buttons ---------- */
+.cta-buttons {
+  margin-top: clamp(1.8rem, 4vh, 2.6rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.2rem;
+  flex-wrap: wrap;
+}
+.cta-btn-lg {
+  padding: 1.2rem 2.2rem;
+  font-size: 0.86rem;
+}
+
+.cta-status {
+  margin-top: clamp(2.2rem, 5vh, 3.4rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 1.2rem;
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  border-radius: 999px;
+  background: rgba(74, 222, 128, 0.05);
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #b9f6ca;
+}
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--open-green);
+  box-shadow: 0 0 10px 2px rgba(74, 222, 128, 0.6);
+  animation: dot-breathe 2.6s ease-in-out infinite;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 560px) {
+  .cta-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-particle { animation: none; opacity: 0; }
+  .status-dot { animation: none; }
+}
