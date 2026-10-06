@@ -1,0 +1,194 @@
+.about {
+  background: linear-gradient(to bottom, var(--obsidian), var(--midnight) 50%, var(--obsidian));
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(2.4rem, 6vw, 5.5rem);
+  align-items: start;
+}
+
+/* ---------- Sticky visual panel ---------- */
+.about-visual {
+  position: sticky;
+  top: clamp(4.5rem, 10vh, 7rem);
+}
+.about-visual-inner {
+  position: relative;
+  aspect-ratio: 4 / 4.6;
+  max-height: 78vh;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  background:
+    radial-gradient(90% 70% at 50% 8%, rgba(229, 169, 59, 0.1) 0%, transparent 55%),
+    linear-gradient(175deg, #16161c 0%, #0d0d10 58%, #0a0a0b 100%);
+}
+.hall-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
+}
+.hl-line {
+  fill: none;
+  stroke: rgba(229, 169, 59, 0.4);
+  stroke-width: 1;
+}
+.hl-line.dim {
+  stroke: rgba(243, 244, 246, 0.16);
+}
+.hl-frame {
+  fill: rgba(229, 169, 59, 0.04);
+  stroke: rgba(243, 244, 246, 0.22);
+  stroke-width: 1;
+  transition: stroke 0.5s ease, fill 0.5s ease;
+}
+.hl-alcove:hover .hl-frame {
+  stroke: rgba(229, 169, 59, 0.7);
+  fill: rgba(229, 169, 59, 0.09);
+}
+.hl-glow {
+  opacity: 0.5;
+  animation: hall-breathe 5s ease-in-out infinite;
+}
+.hl-alcove.a1 .hl-glow { animation-delay: 1.2s; }
+.hl-alcove.a2 .hl-glow { animation-delay: 2.4s; }
+.hl-lamp {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+@keyframes hall-breathe {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.75; }
+}
+
+.est-badge {
+  position: absolute;
+  left: 1.2rem;
+  bottom: 1.2rem;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.85rem 1.3rem;
+  border: 1px solid rgba(229, 169, 59, 0.4);
+  border-radius: 3px;
+  background: rgba(10, 10, 11, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 30px -6px rgba(229, 169, 59, 0.35),
+    inset 0 0 18px -8px rgba(229, 169, 59, 0.4);
+}
+.est-badge-year {
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--amber);
+  line-height: 1.1;
+}
+.est-badge-sub {
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+/* ---------- Editorial copy ---------- */
+.about-copy .about-h2 {
+  margin-bottom: clamp(1.6rem, 3.5vh, 2.6rem);
+}
+.about-h2 .h2-sans {
+  display: inline-block;
+}
+.about-h2 .h2-serif {
+  display: inline-block;
+}
+
+.about-p {
+  color: var(--silver);
+  font-weight: 300;
+  font-size: clamp(1rem, 1.35vw, 1.12rem);
+  line-height: 1.85;
+  max-width: 58ch;
+}
+.about-p + .about-p {
+  margin-top: 1.4rem;
+}
+.about-p strong {
+  color: var(--parchment);
+  font-weight: 500;
+}
+
+/* Landmark chip — the glowing brass plaque */
+.landmark-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  white-space: nowrap;
+  padding: 0.14rem 0.7rem 0.18rem;
+  border: 1px solid rgba(229, 169, 59, 0.45);
+  border-radius: 999px;
+  background: linear-gradient(160deg, rgba(229, 169, 59, 0.16), rgba(229, 169, 59, 0.05));
+  color: var(--amber-soft);
+  font-weight: 400;
+  box-shadow:
+    0 0 18px -4px rgba(229, 169, 59, 0.45),
+    inset 0 0 12px -6px rgba(229, 169, 59, 0.5);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.landmark-chip:hover {
+  border-color: var(--amber);
+  box-shadow:
+    0 0 30px -4px rgba(229, 169, 59, 0.65),
+    inset 0 0 16px -6px rgba(229, 169, 59, 0.7);
+}
+.landmark-chip svg {
+  color: var(--amber);
+}
+
+.about-quote {
+  position: relative;
+  margin-top: clamp(2rem, 4.5vh, 3rem);
+  padding-left: 1.6rem;
+  border-left: 2px solid var(--amber);
+}
+.quote-mark {
+  position: absolute;
+  top: -0.55rem;
+  left: 1.1rem;
+  font-size: 3.2rem;
+  line-height: 1;
+  color: rgba(229, 169, 59, 0.4);
+}
+.quote-text {
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  font-style: italic;
+  color: var(--parchment);
+  line-height: 1.35;
+}
+.quote-text em {
+  color: var(--amber);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-visual {
+    position: relative;
+    top: 0;
+  }
+  .about-visual-inner {
+    aspect-ratio: 16 / 10;
+    max-height: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hl-glow { animation: none; }
+}

@@ -1,0 +1,159 @@
+.ledger {
+  background:
+    radial-gradient(60% 90% at 8% 85%, rgba(229, 169, 59, 0.05) 0%, transparent 55%),
+    var(--obsidian);
+}
+
+.ledger-grid {
+  margin-top: clamp(2.4rem, 5vh, 3.8rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(2.4rem, 6vw, 5.5rem);
+  align-items: center;
+}
+
+.ledger-h-sans {
+  display: inline-block;
+}
+.ledger-h-serif {
+  display: inline-block;
+}
+
+/* ---------- Anchor score ---------- */
+.ledger-anchor {
+  border: 1px solid var(--amber-line);
+  border-radius: 4px;
+  background:
+    radial-gradient(120% 100% at 20% 0%, rgba(229, 169, 59, 0.1) 0%, transparent 55%),
+    linear-gradient(165deg, var(--midnight), var(--obsidian));
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  margin-bottom: 14px;
+}
+.anchor-score {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+.anchor-num {
+  font-size: clamp(4.6rem, 9vw, 7.2rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--amber);
+  text-shadow:
+    0 0 34px rgba(229, 169, 59, 0.5),
+    0 0 110px rgba(229, 169, 59, 0.2);
+  font-variant-numeric: tabular-nums;
+}
+.anchor-star {
+  color: var(--amber);
+  margin-top: 0.9rem;
+  filter: drop-shadow(0 0 14px rgba(229, 169, 59, 0.7));
+}
+.anchor-source {
+  margin-top: 0.9rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+.anchor-bar {
+  margin-top: 1.5rem;
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(243, 244, 246, 0.07);
+  overflow: visible;
+}
+.anchor-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(229, 169, 59, 0.45), var(--amber));
+  box-shadow: 0 0 18px rgba(229, 169, 59, 0.45);
+  transition: width 1.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.anchor-bar-target {
+  position: absolute;
+  top: -7px;
+  width: 1px;
+  height: 22px;
+  background: rgba(243, 244, 246, 0.35);
+}
+.anchor-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.7rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+}
+
+/* ---------- Justdial block ---------- */
+.ledger-justdial {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: linear-gradient(165deg, var(--midnight), var(--obsidian));
+  padding: clamp(1.3rem, 2.4vw, 1.8rem);
+  margin-bottom: 14px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 1.4rem;
+  align-items: center;
+}
+.jd-score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  grid-row: span 2;
+}
+.jd-num {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 500;
+  color: var(--parchment);
+  font-variant-numeric: tabular-nums;
+}
+.jd-star {
+  color: var(--amber);
+  filter: drop-shadow(0 0 10px rgba(229, 169, 59, 0.55));
+}
+.jd-src {
+  font-size: 0.6rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+}
+.jd-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(243, 244, 246, 0.07);
+  overflow: hidden;
+}
+.jd-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(229, 169, 59, 0.35), rgba(229, 169, 59, 0.8));
+  transition: width 1.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Links ---------- */
+.ledger-links {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.ledger-footnote {
+  margin-top: 2.2rem;
+  max-width: 70ch;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .ledger-grid {
+    grid-template-columns: 1fr;
+  }
+}

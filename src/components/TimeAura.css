@@ -1,0 +1,81 @@
+.aura {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 98%);
+  mask-image: linear-gradient(to bottom, black 55%, transparent 98%);
+}
+
+.aura-phase {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 2.6s ease;
+}
+.aura-phase.active {
+  opacity: 1;
+}
+
+.aura-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  will-change: transform;
+}
+
+.aura-blob.b1 {
+  width: 64vw;
+  height: 64vw;
+  top: -22%;
+  right: -14%;
+  opacity: 0.75;
+  animation: aura-drift-1 26s ease-in-out infinite alternate;
+}
+.aura-blob.b2 {
+  width: 52vw;
+  height: 52vw;
+  bottom: -26%;
+  left: -16%;
+  opacity: 0.6;
+  animation: aura-drift-2 32s ease-in-out infinite alternate;
+}
+.aura-blob.b3 {
+  width: 40vw;
+  height: 40vw;
+  top: 26%;
+  left: 34%;
+  opacity: 0.4;
+  animation: aura-drift-3 38s ease-in-out infinite alternate;
+}
+
+@keyframes aura-drift-1 {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-9%, 7%, 0) scale(1.14); }
+}
+@keyframes aura-drift-2 {
+  from { transform: translate3d(0, 0, 0) scale(1.08); }
+  to { transform: translate3d(10%, -6%, 0) scale(0.94); }
+}
+@keyframes aura-drift-3 {
+  from { transform: translate3d(0, 0, 0) scale(0.95); }
+  to { transform: translate3d(-7%, -9%, 0) scale(1.12); }
+}
+
+/* Keep the editorial text readable on top of the mesh */
+.aura-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 18% 30%, rgba(10, 10, 11, 0.72) 0%, transparent 60%),
+    linear-gradient(to bottom, rgba(10, 10, 11, 0.55), transparent 30%, transparent 72%, rgba(10, 10, 11, 0.92));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aura-blob {
+    animation: none;
+  }
+  .aura-phase {
+    transition: none;
+  }
+}
