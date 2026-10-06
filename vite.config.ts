@@ -6,5 +6,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: true,
+    allowedHosts: ["5173-iiex96ht420237fgujz4z.e2b.app"],
   },
 });
