@@ -1,9 +1,12 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { Link, useRoute } from "../router";
-import { useMagnetic } from "../hooks/useMagnetic";
+
 import { Phone } from "./Icons";
 import { Logo } from "./Logo";
 import "./NavBar.css";
+
+const NAV_BREAKPOINT = 1180;
+const MOBILE_ASSIST_HINT_KEY = "ar-navbar-mobile-assist-hint-seen";
 
 const PAGES: { label: string; to: string }[] = [
   { label: "Home", to: "/" },
@@ -34,7 +37,29 @@ export function NavBar() {
   const path = useRoute();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const cta = useMagnetic<HTMLAnchorElement>(0.2, 6);
+  const [showMenuCue, setShowMenuCue] = useState(false);
+
+  // On first visit to a narrow viewport, open the menu so the nav is
+  // immediately visible. Repeat visits remember that the user already
+  // saw the menu (via session storage) and only taps it intentionally.
+  const isNarrow = typeof window !== "undefined" && window.innerWidth < NAV_BREAKPOINT;
+
+  useEffect(() => {
+    if (!isNarrow) return;
+
+    const hintSeen = typeof sessionStorage !== "undefined"
+      ? sessionStorage.getItem(MOBILE_ASSIST_HINT_KEY) === "1"
+      : false;
+
+    if (!hintSeen) {
+      setOpen(true);
+      if (typeof sessionStorage !== "undefined") {
+        sessionStorage.setItem(MOBILE_ASSIST_HINT_KEY, "1");
+      }
+      // The cue ring shows once per session while the menu is closed.
+      setShowMenuCue(true);
+    }
+  }, [isNarrow]);
 
   // Close the mobile menu whenever the route changes.
   useEffect(() => {
@@ -59,15 +84,18 @@ export function NavBar() {
     };
   }, [open]);
 
-  // Escape closes the menu.
+  // Escape / tap-outside closes the menu.
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      setShowMenuCue(isNarrow);
+      return;
+    }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, [open, isNarrow]);
 
   return (
     <>
@@ -90,9 +118,6 @@ export function NavBar() {
 
           <div className="nv-right">
             <a
-              ref={cta.ref}
-              onMouseMove={cta.onMouseMove}
-              onMouseLeave={cta.onMouseLeave}
               className="btn btn-primary nv-cta"
               href="tel:+917070549845"
             >
@@ -101,15 +126,25 @@ export function NavBar() {
 
             <button
               type="button"
-              className={`nv-burger ${open ? "open" : ""}`}
+              className={`nv-burger ${open ? "open" : ""} ${showMenuCue && !open ? "nv-burger-hint" : ""}`}
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? "Close menu" : "Open menu"}
-              onClick={() => setOpen((v) => !v)}
+              aria-describedby={!open && isNarrow ? "nv-menu-hint" : undefined}
+              onClick={() => {
+                setShowMenuCue(false);
+                setOpen((v) => !v);
+              }}
             >
               <span aria-hidden="true" />
               <span aria-hidden="true" />
             </button>
+
+            {!open && isNarrow && (
+              <span id="nv-menu-hint" className="nv-menu-hint mono" aria-live="polite">
+                Menu
+              </span>
+            )}
           </div>
         </div>
       </header>
