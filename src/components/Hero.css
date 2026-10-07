@@ -155,9 +155,9 @@
 
 .hero-h1 {
   font-weight: 700;
-  line-height: 0.96;
-  letter-spacing: -0.035em;
-  font-size: clamp(3.1rem, 9.6vw, 7.6rem);
+  line-height: 0.93;
+  letter-spacing: -0.04em;
+  font-size: clamp(3.4rem, 11vw, 9rem);
 }
 .hero-h1 .h-sans {
   display: inline-block;
@@ -170,11 +170,12 @@
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.01em;
-  font-size: 1.06em;
+  font-size: 1.08em;
   color: var(--amber);
   text-shadow:
-    0 0 34px rgba(229, 169, 59, 0.4),
-    0 0 90px rgba(229, 169, 59, 0.16);
+    0 0 34px rgba(229, 169, 59, 0.55),
+    0 0 90px rgba(229, 169, 59, 0.3),
+    0 0 150px rgba(229, 169, 59, 0.18);
 }
 .hero-h1 .h-dot {
   color: var(--parchment);
@@ -183,11 +184,13 @@
 
 .hero-sub {
   max-width: 46ch;
-  margin-top: clamp(1.6rem, 3.4vh, 2.6rem);
-  color: var(--silver);
+  margin-top: clamp(1.4rem, 3vh, 2.1rem);
+  color: var(--parchment);
+  opacity: 0.88;
   font-weight: 300;
-  font-size: clamp(0.98rem, 1.4vw, 1.13rem);
-  line-height: 1.8;
+  font-size: clamp(1.08rem, 1.7vw, 1.3rem);
+  line-height: 1.7;
+  letter-spacing: 0.01em;
 }
 
 /* ---------- Fact rail ---------- */
@@ -314,7 +317,7 @@
   align-items: center;
   gap: 1rem 1.4rem;
   flex-wrap: wrap;
-  padding-top: 0.4rem;
+  padding-top: 0.9rem;
 }
 .hero-cta-link {
   margin-left: 0.4rem;
