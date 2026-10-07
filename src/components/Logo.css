@@ -1,0 +1,18 @@
+/* Brand mark — soft amber halo, used in navbar + footer lockups */
+.logo-mark {
+  display: block;
+  flex: none;
+  filter: drop-shadow(0 0 12px rgba(229, 169, 59, 0.35));
+  transition: filter 0.4s ease;
+}
+
+a:hover .logo-mark,
+a:focus-visible .logo-mark {
+  filter: drop-shadow(0 0 18px rgba(229, 169, 59, 0.6));
+}
+
+/* Footer lockup — mark sits above the wordmark in the brand column */
+.f-logo-row {
+  display: inline-flex;
+  margin-bottom: 1rem;
+}

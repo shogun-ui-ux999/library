@@ -31,11 +31,17 @@
 /* --- Wordmark --- */
 .nv-wordmark {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.55rem;
+  align-items: center;
+  gap: 0.7rem;
   text-decoration: none;
   color: var(--parchment);
   flex: none;
+}
+
+.nv-text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
 }
 
 .nv-ar {
@@ -309,6 +315,11 @@
 @media (max-width: 460px) {
   .nv-cta {
     display: none;
+  }
+
+  .nv-mark {
+    width: 28px;
+    height: 28px;
   }
 
   .nv-rest {

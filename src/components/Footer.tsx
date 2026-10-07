@@ -3,6 +3,7 @@ import { useMagnetic } from "../hooks/useMagnetic";
 import { Reveal } from "./Reveal";
 import { Phone, MapPin, ArrowUpRight } from "./Icons";
 import { Link } from "../router";
+import { Logo } from "./Logo";
 import "./Footer.css";
 
 const NAV_LINKS: { label: string; to: string }[] = [
@@ -81,6 +82,9 @@ export function Footer() {
         <Reveal variant="fade" className="footer-grid">
           {/* Brand */}
           <div className="f-col f-brand">
+            <span className="f-logo-row" aria-hidden="true">
+              <Logo size={46} />
+            </span>
             <p className="f-wordmark">
               <span className="f-ar serif">AR</span>
               <span className="f-rest mono">

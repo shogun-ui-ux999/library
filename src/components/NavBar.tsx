@@ -2,6 +2,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { Link, useRoute } from "../router";
 import { useMagnetic } from "../hooks/useMagnetic";
 import { Phone } from "./Icons";
+import { Logo } from "./Logo";
 import "./NavBar.css";
 
 const PAGES: { label: string; to: string }[] = [
@@ -18,9 +19,12 @@ const PAGES: { label: string; to: string }[] = [
 function Wordmark() {
   return (
     <Link to="/" className="nv-wordmark" aria-label="AR Smart Library — home">
-      <span className="nv-ar serif">AR</span>
-      <span className="nv-rest">
-        Smart <em>Library</em>
+      <Logo size={34} className="nv-mark" />
+      <span className="nv-text">
+        <span className="nv-ar serif">AR</span>
+        <span className="nv-rest">
+          Smart <em>Library</em>
+        </span>
       </span>
     </Link>
   );
