@@ -1,5 +1,6 @@
-import { Reveal, Line } from "./Reveal";
-import { SweetsIcon } from "./Icons";
+import { Reveal } from "./Reveal";
+import { SweetsIcon, Clock, MapPin } from "./Icons";
+import { Link } from "../router";
 import "./About.css";
 
 /** Abstract architectural line-art of a quiet study hall. */
@@ -45,6 +46,12 @@ function HallLines() {
   );
 }
 
+const ABOUT_FACTS = [
+  { icon: <MapPin size={14} />, label: "Serving students in Namkum since 2024" },
+  { icon: <SweetsIcon size={14} />, label: "Beside Katyayni Sweets, Sadabahar Chowk" },
+  { icon: <Clock size={14} />, label: "Open 24 hours, 7 days a week" },
+];
+
 export function About() {
   return (
     <section className="section about" id="about" aria-label="About AR Smart Library">
@@ -60,49 +67,53 @@ export function About() {
           </div>
         </div>
 
-        {/* Scrolling editorial text */}
+        {/* Editorial copy */}
         <div className="about-copy">
-          <Reveal variant="fade" as="p" className="kicker">
-            <span className="k-idx">02</span> About
-          </Reveal>
-
-          <Reveal as="h2" variant="clip" className="h2 about-h2">
-            <Line index={0}>
-              <span className="h2-sans">A Dedicated Space</span>
-            </Line>
-            <Line index={1}>
-              <span className="h2-serif accent">for Deep Focus.</span>
-            </Line>
+          <Reveal variant="up" as="p" className="about-p">
+            AR Smart Library is a dedicated reading and study space located at{" "}
+            <strong>Sadabahar Chowk, Namkum, Ranchi</strong>. Established in{" "}
+            <strong>2024</strong>, the library provides students and learners
+            with a place to focus on their studies around the clock.
           </Reveal>
 
           <Reveal variant="up" delay={120} as="p" className="about-p">
-            Established in <strong>March 2024</strong>, AR Smart Library was built
-            around a single idea: focus shouldn&rsquo;t keep office hours. Whether
-            it&rsquo;s a late-night revision session or a 5&nbsp;AM start, the
-            library stays open — 24 hours a day, 7 days a week — including the
-            hours most libraries close.
+            Located on the first floor of <strong>Kamla Enclave</strong>, beside{" "}
+            <span className="landmark-chip">
+              <SweetsIcon size={14} /> Katyayni Sweets
+            </span>
+            , AR Smart Library is easily identifiable from Sadabahar Chowk and
+            remains open 24 hours a day, 7 days a week.
           </Reveal>
 
           <Reveal variant="up" delay={220} as="p" className="about-p">
-            You&rsquo;ll find it on the first floor of <strong>Kamla Enclave</strong>,
-            right at <strong>Sadabahar Chowk</strong> in Namkum —{" "}
-            <span className="landmark-chip">
-              <SweetsIcon size={14} /> beside Katyayni Sweets
-            </span>
-            . It&rsquo;s the kind of landmark you can&rsquo;t miss, so the only
-            thing left to think about is the page in front of you.
+            No frills, no distractions — just a calm, dedicated room for
+            students, exam aspirants and anyone chasing deep, uninterrupted
+            work. Whether it&rsquo;s a late-night revision session or a 5&nbsp;AM
+            start, the doors are open.
           </Reveal>
 
-          <Reveal variant="up" delay={300} as="p" className="about-p">
-            No frills, no distractions — just a calm, dedicated room for
-            students, exam aspirants and anyone chasing deep, uninterrupted work.
-          </Reveal>
+          <ul className="about-facts">
+            {ABOUT_FACTS.map((f, i) => (
+              <Reveal as="li" variant="up" delay={280 + i * 90} className="about-fact" key={f.label}>
+                <span className="af-icon" aria-hidden="true">
+                  {f.icon}
+                </span>
+                <span>{f.label}</span>
+              </Reveal>
+            ))}
+          </ul>
 
           <Reveal variant="fade" delay={200} as="blockquote" className="about-quote">
             <span className="quote-mark serif" aria-hidden="true">&ldquo;</span>
             <span className="quote-text serif">
               The desk lamp is <em>always</em> on.
             </span>
+          </Reveal>
+
+          <Reveal variant="up" delay={120} className="about-cta-row">
+            <Link to="/location" className="btn btn-glass">
+              Visit the Library <MapPin size={15} />
+            </Link>
           </Reveal>
         </div>
       </div>

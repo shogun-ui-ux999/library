@@ -1,11 +1,10 @@
-import type { CSSProperties } from "react";
 import { useInView } from "../hooks/useInView";
 import { useCountUp } from "../hooks/useCountUp";
 import { Reveal } from "./Reveal";
 import { Star, ArrowUpRight } from "./Icons";
 import "./TrustLedger.css";
 
-const GOOGLE_URL = "https://www.google.com/maps/search/?api=1&query=AR+Smart+Library+Namkum+Ranchi";
+const GOOGLE_URL = "https://maps.app.goo.gl/W3mpeq8EDtGj3rn9A";
 const JUSTDIAL_URL = "https://www.justdial.com/Ranchi/AR-Smart-Library-in-Namkum";
 
 function GoogleRating() {
@@ -20,7 +19,7 @@ function GoogleRating() {
           <Star size={44} />
         </span>
       </div>
-      <p className="anchor-source mono">Google · Rating</p>
+      <p className="anchor-source mono">Google · 4.7 / 5 · 50 Reviews</p>
 
       <div
         className="anchor-bar"
@@ -51,7 +50,7 @@ function JustdialRating() {
           <Star size={20} />
         </span>
       </div>
-      <p className="jd-src mono">Justdial · Rating</p>
+      <p className="jd-src mono">Justdial · 4.6 / 5 · 39 Ratings</p>
       <div className="jd-bar" role="img" aria-label="Justdial rating: 4.6 out of 5">
         <span className="jd-bar-fill" style={{ width: inView ? "92%" : "0%" }} />
       </div>
@@ -63,31 +62,7 @@ export function TrustLedger() {
   return (
     <section className="section ledger" id="reviews" aria-label="Ratings and reviews">
       <div className="container">
-        <Reveal variant="fade" as="p" className="kicker">
-          <span className="k-idx">05</span> Reviews · Trust Ledger
-        </Reveal>
-
         <div className="ledger-grid">
-          <div className="ledger-left">
-            <Reveal as="h2" variant="clip" className="h2 ledger-h2">
-              <span className="line-mask">
-                <span className="line-inner" style={{ "--i": 0 } as CSSProperties}>
-                  <span className="ledger-h-sans">A Highly Rated</span>
-                </span>
-              </span>
-              <span className="line-mask">
-                <span className="line-inner" style={{ "--i": 1 } as CSSProperties}>
-                  <span className="ledger-h-serif accent serif">Study Space in Namkum.</span>
-                </span>
-              </span>
-            </Reveal>
-
-            <Reveal variant="up" delay={130} as="p" className="section-lede">
-              Ratings are pulled from public directories — a quiet signal of
-              consistency, not a marketing claim.
-            </Reveal>
-          </div>
-
           <div className="ledger-right">
             <GoogleRating />
             <JustdialRating />

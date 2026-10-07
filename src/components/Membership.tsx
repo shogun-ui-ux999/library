@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import { useTilt } from "../hooks/useTilt";
 import { useMagnetic } from "../hooks/useMagnetic";
 import { Reveal } from "./Reveal";
@@ -46,33 +45,13 @@ export function Membership() {
   return (
     <section className="section membership" id="membership" aria-label="Membership">
       <div className="container">
-        <Reveal variant="fade" as="p" className="kicker">
-          <span className="k-idx">04</span> Membership
-        </Reveal>
-
         <div className="m-pass-card">
           <div className="m-copy">
-            <Reveal as="h2" variant="clip" className="h2">
-              <span className="line-mask">
-                <span className="line-inner" style={{ "--i": 0 } as CSSProperties}>
-                  <span className="m-h-sans">Flexible</span>
-                </span>
-              </span>
-              <span className="line-mask">
-                <span className="line-inner" style={{ "--i": 1 } as CSSProperties}>
-                  <span className="m-h-serif accent serif">Study Plans.</span>
-                </span>
-              </span>
-            </Reveal>
-
-            <Reveal variant="up" delay={140} as="p" className="m-sub serif">
-              Contact AR Smart Library for current membership plans, availability,
-              and pricing.
-            </Reveal>
 
             <Reveal variant="up" delay={230} as="p" className="m-note">
-              We don&rsquo;t publish prices we can&rsquo;t verify. Plans are
-              confirmed directly with the library — by phone or in person.
+              We don&rsquo;t publish prices we can&rsquo;t verify — no invented
+              plans, no placeholder numbers. For accurate and current membership
+              information, please contact the library directly.
             </Reveal>
 
             <Reveal variant="up" delay={320} className="m-cta-row">

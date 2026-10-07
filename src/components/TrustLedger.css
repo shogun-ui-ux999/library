@@ -7,8 +7,8 @@
 .ledger-grid {
   margin-top: clamp(2.4rem, 5vh, 3.8rem);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  gap: clamp(2.4rem, 6vw, 5.5rem);
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 44rem;
   align-items: center;
 }
 
@@ -152,8 +152,3 @@
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 900px) {
-  .ledger-grid {
-    grid-template-columns: 1fr;
-  }
-}

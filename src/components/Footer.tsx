@@ -2,18 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import { useMagnetic } from "../hooks/useMagnetic";
 import { Reveal } from "./Reveal";
 import { Phone, MapPin, ArrowUpRight } from "./Icons";
+import { Link } from "../router";
 import "./Footer.css";
 
-const NAV_LINKS: { label: string; href: string }[] = [
-  { label: "Home", href: "#top" },
-  { label: "About", href: "#about" },
-  { label: "Facilities", href: "#facilities" },
-  { label: "Membership", href: "#membership" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Location", href: "#location" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+const NAV_LINKS: { label: string; to: string }[] = [
+  { label: "Home", to: "/" },
+  { label: "About", to: "/about" },
+  { label: "Facilities", to: "/facilities" },
+  { label: "Membership", to: "/membership" },
+  { label: "Gallery", to: "/gallery" },
+  { label: "Reviews", to: "/reviews" },
+  { label: "Location", to: "/location" },
+  { label: "Contact", to: "/contact" },
 ];
 
 const SOCIALS = [
@@ -114,9 +114,9 @@ export function Footer() {
             <ul className="f-links">
               {NAV_LINKS.map((l) => (
                 <li key={l.label}>
-                  <a className="f-link mono" href={l.href}>
+                  <Link className="f-link mono" to={l.to}>
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

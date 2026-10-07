@@ -29,23 +29,19 @@ const FAQS: Faq[] = [
   },
   {
     q: "Is parking available?",
-    a: "Not publicly verified. Contact the library before relying on this information.",
-    confirm: true,
+    a: "Yes — parking is available. For specific vehicle types or peak-hour availability, call the library to confirm details.",
   },
   {
     q: "Does the library have Wi-Fi?",
-    a: "Not publicly verified.",
-    confirm: true,
+    a: "Yes — high-speed Wi-Fi is available for members.",
   },
   {
     q: "Does the library have AC?",
-    a: "Not publicly verified.",
-    confirm: true,
+    a: "Yes — the library is air-conditioned, with fans for extra airflow.",
   },
   {
     q: "Does the library provide lockers?",
-    a: "Not publicly verified.",
-    confirm: true,
+    a: "Yes — locker facilities are available for members.",
   },
 ];
 
@@ -69,15 +65,16 @@ export function Faq() {
     <section className="section faq" id="faq" aria-label="Frequently asked questions">
       <div className="container">
         <Reveal variant="fade" as="p" className="kicker">
-          <span className="k-idx">08</span> FAQ
+          <span className="k-idx">07</span> FAQ
         </Reveal>
 
         <Reveal as="h2" variant="up" className="h2 faq-h2">
           Frequently Asked <span className="accent serif">Questions.</span>
         </Reveal>
         <Reveal variant="up" delay={120} as="p" className="section-lede">
-          Everything you need to know about AR Smart Library — answered from
-          public listings, and clearly marked where we can&rsquo;t verify.
+          Everything you need to know about AR Smart Library — confirmed
+          directly with the library, and clearly marked where we
+          can&rsquo;t verify.
         </Reveal>
 
         <div className="faq-layout">
