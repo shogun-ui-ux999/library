@@ -1,5 +1,10 @@
 /* ============================================================
    Fixed top navigation — dark glass, thin amber-lined, minimal
+   Desktop: wordmark | 8 mono links | Call Now.
+   Below 1180px the SAME bar wraps: wordmark + Call Now on the
+   first row and the SAME links as the PC version in a slim,
+   horizontally scrollable strip underneath — no burger button,
+   no separate menu screen.
    ============================================================ */
 
 .navbar {
@@ -65,7 +70,7 @@
   color: var(--silver);
 }
 
-/* --- Desktop links --- */
+/* --- Links — visible on desktop AND mobile --- */
 .nv-links {
   display: flex;
   align-items: center;
@@ -81,6 +86,7 @@
   text-decoration: none;
   color: var(--silver);
   padding: 0.4rem 0;
+  white-space: nowrap;
   transition: color 0.3s ease;
 }
 
@@ -114,337 +120,82 @@
   transform: scaleX(1);
 }
 
-/* --- Right side: CTA + burger --- */
-.nv-right {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  flex: none;
-}
-
+/* --- Call Now --- */
 .nv-cta {
   padding: 0.85rem 1.5rem;
   font-size: 0.78rem;
   letter-spacing: 0.16em;
+  flex: none;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.3),
     0 8px 30px -10px rgba(229, 169, 59, 0.65),
     0 0 26px -6px rgba(229, 169, 59, 0.4);
 }
 
-/* --- Burger ---
-   Touch-friendly target on coarse-pointer devices, subtle first-use
-   hint ring on narrow screens until the menu has been opened once. */
-.nv-burger {
-  display: none;
-  position: relative;
-  width: 42px;
-  height: 42px;
-  padding: 0;
-  background: transparent;
-  border: 1px solid var(--line-bright);
-  border-radius: 999px;
-  cursor: pointer;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-@media (pointer: coarse) {
-  .nv-burger {
-    width: 48px;
-    height: 48px;
-  }
-}
-
-.nv-burger:hover {
-  border-color: var(--amber-line);
-}
-
-.nv-burger span {
-  position: absolute;
-  left: 50%;
-  width: 16px;
-  height: 1.5px;
-  background: var(--parchment);
-  transform: translateX(-50%);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), top 0.35s ease;
-}
-
-.nv-burger span:nth-child(1) {
-  top: 17px;
-}
-
-.nv-burger span:nth-child(2) {
-  top: 23px;
-}
-
-.nv-burger.open span:nth-child(1) {
-  top: 20px;
-  transform: translateX(-50%) rotate(45deg);
-  background: var(--amber);
-}
-
-.nv-burger.open span:nth-child(2) {
-  top: 20px;
-  transform: translateX(-50%) rotate(-45deg);
-  background: var(--amber);
-}
-
-.nv-burger-hint {
-  box-shadow: 0 0 0 0 rgba(229, 169, 59, 0);
-  animation: burger-hint-pulse 1.8s ease-in-out 2;
-}
-
-@keyframes burger-hint-pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(229, 169, 59, 0.25);
-  }
-  50% {
-    box-shadow: 0 0 0 8px rgba(229, 169, 59, 0);
-  }
-}
-
-.nv-menu-hint {
-  position: absolute;
-  top: 50%;
-  right: calc(100% + 8px);
-  transform: translateY(-50%);
-  padding: 0.32rem 0.55rem;
-  border: 1px solid var(--amber-line);
-  border-radius: 999px;
-  background: rgba(10, 10, 11, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  font-size: 0.64rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--amber-soft);
-  pointer-events: none;
-  white-space: nowrap;
-  opacity: 0;
-  animation: nv-hint-in 0.5s ease 0.15s both;
-  animation-fill-mode: both;
-}
-
-@keyframes nv-hint-in {
-  from {
-    opacity: 0;
-    transform: translateY(-50%) scale(0.85);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(-50%) scale(1);
-  }
-}
-
-/* ============================================================
-   Full-screen mobile menu — editorial, staggered, serif
-   ============================================================ */
-
-.mmenu {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background:
-    radial-gradient(120% 90% at 85% -10%, rgba(229, 169, 59, 0.07), transparent 55%),
-    var(--obsidian);
-  overflow-y: auto;
-  animation: mmenu-fade 0.4s ease both;
-}
-
-@keyframes mmenu-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.mmenu-inner {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2.4rem;
-  width: min(1240px, 100% - 2 * var(--gutter));
-  margin-inline: auto;
-  padding: 6.5rem 0 3rem;
-}
-
-.mmenu-kicker {
-  font-size: 0.68rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--silver-dim);
-}
-
-.mmenu-list {
-  list-style: none;
-  display: grid;
-}
-
-.mmenu-item {
-  border-bottom: 1px solid var(--line);
-  animation: mmenu-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i) * 60ms + 100ms) both;
-}
-
-@keyframes mmenu-rise {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 26px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.mmenu-link {
-  display: flex;
-  align-items: baseline;
-  gap: 1.1rem;
-  padding: 1.05rem 0.25rem;
-  text-decoration: none;
-  color: var(--parchment);
-  transition: color 0.3s ease, padding-left 0.3s ease;
-}
-
-.mmenu-idx {
-  font-size: 0.7rem;
-  color: var(--silver-ghost);
-  transition: color 0.3s ease;
-}
-
-.mmenu-label {
-  font-size: clamp(2rem, 8vw, 3.1rem);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-}
-
-.mmenu-arrow {
-  margin-left: auto;
-  font-size: 1.2rem;
-  color: var(--silver-ghost);
-  opacity: 0;
-  transform: translateX(-8px);
-  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
-}
-
-.mmenu-link:hover,
-.mmenu-link.active {
-  color: var(--amber);
-}
-
-.mmenu-link:hover .mmenu-idx,
-.mmenu-link.active .mmenu-idx {
-  color: var(--amber);
-}
-
-.mmenu-link:hover .mmenu-arrow,
-.mmenu-link.active .mmenu-arrow {
-  opacity: 1;
-  transform: translateX(0);
-  color: var(--amber);
-}
-
-.mmenu-foot {
-  display: grid;
-  gap: 0.9rem;
-  justify-items: start;
-  animation: mmenu-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(8 * 60ms + 150ms) both;
-}
-
-.mmenu-note {
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--silver-dim);
-}
-
-/* --- Breakpoints ---
-   The 8 mono links (~490px of fixed text) plus a dominant CTA only fit
-   the container above ~1150px, so the editorial burger menu takes over
-   below 1180px to keep the navbar from crowding or clipping. */
+/* --- Mobile: full nav, no burger ---
+   One row can't hold wordmark + 8 links + CTA, so the row wraps:
+   Call Now sits beside the wordmark and the links become a slim
+   scrollable strip — same links, same look as the PC version. */
 @media (max-width: 1179px) {
+  .nv-row {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0.8rem 0 0;
+    gap: 0.7rem 1.4rem;
+  }
+
+  .nv-cta {
+    padding: 0.6rem 1.05rem;
+    font-size: 0.72rem;
+  }
+
   .nv-links {
+    order: 3;
+    flex: 1 1 100%;
+    gap: 1.35rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.15rem 0 0.55rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .nv-links::-webkit-scrollbar {
     display: none;
   }
 
-  .nv-burger {
-    display: block;
-  }
-
-  /* Show the Menu affordance only when there's a little room to its left.
-     When the desktop CTA is also hidden, the hint sits closer so the burger
-     plus menu cue stay grouped. */
-  .nv-menu-hint {
-    display: none;
-  }
-
-  .nv-cta {
-    display: block;
+  /* Solid-enough resting bar so the navbar reads clearly over the hero. */
+  .navbar {
+    background: rgba(10, 10, 11, 0.85);
   }
 }
 
 @media (max-width: 460px) {
-  .nv-cta {
-    display: none;
-  }
-
   .nv-mark {
     width: 28px;
     height: 28px;
   }
 
+  .nv-ar {
+    font-size: 1.3rem;
+  }
+
   .nv-rest {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
   }
 
-  .nv-menu-hint {
-    display: block;
-  }
-
-  .nv-right {
-    gap: 0.6rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mmenu,
-  .mmenu-item,
-  .mmenu-foot {
-    animation: none;
-  }
-
-  .nv-burger-hint {
-    animation: none;
-  }
-
-  .nv-menu-hint {
-    animation: none;
-    opacity: 1;
-  }
-}
-
-@media (max-width: 460px) {
   .nv-cta {
-    display: none;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
   }
 
-  .nv-mark {
-    width: 28px;
-    height: 28px;
+  .nv-links {
+    gap: 1rem;
   }
 
-  .nv-rest {
-    font-size: 0.82rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mmenu,
-  .mmenu-item,
-  .mmenu-foot {
-    animation: none;
+  .nv-link {
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
   }
 }
