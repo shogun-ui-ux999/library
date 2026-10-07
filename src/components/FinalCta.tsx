@@ -76,7 +76,7 @@ export function FinalCta() {
 
       <div className="container cta-inner">
         <Reveal variant="fade" as="p" className="kicker">
-          <span className="k-idx">09</span> Begin · Contact
+          <span className="k-idx">08</span> Begin · Contact
         </Reveal>
 
         <Reveal as="h2" variant="clip" className="h2 cta-h2">

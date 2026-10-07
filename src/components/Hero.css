@@ -5,6 +5,7 @@
   flex-direction: column;
   overflow: hidden;
   background: var(--obsidian);
+  padding-top: 4.5rem; /* clears the fixed navbar */
   padding-bottom: clamp(2rem, 5vh, 4rem);
 }
 

@@ -1,6 +1,6 @@
 import { useTilt } from "../hooks/useTilt";
 import { useMagnetic } from "../hooks/useMagnetic";
-import { Reveal, Line } from "./Reveal";
+import { Reveal } from "./Reveal";
 import { MapPin, Phone, Compass, SweetsIcon, ArrowUpRight } from "./Icons";
 import "./Location.css";
 
@@ -72,22 +72,6 @@ export function Location() {
   return (
     <section className="section location" id="location" aria-label="Location and directions">
       <div className="container">
-        <Reveal variant="fade" as="p" className="kicker">
-          <span className="k-idx">07</span> Location
-        </Reveal>
-
-        <Reveal as="h2" variant="clip" className="h2 loc-h2">
-          <Line index={0}>
-            <span className="loc-h-sans">Find </span>
-            <span className="loc-h-serif accent serif">AR Smart Library.</span>
-          </Line>
-        </Reveal>
-
-        <Reveal variant="up" delay={120} as="p" className="section-lede">
-          Your 24/7 study destination at Sadabahar Chowk, Namkum — easy to
-          find, easier to come back to.
-        </Reveal>
-
         <div className="loc-grid">
           {/* Interactive stylized map */}
           <Reveal variant="left" delay={100} className="loc-map-wrap">
@@ -131,7 +115,8 @@ export function Location() {
               </p>
 
               <p className="footnote addr-footnote">
-                *Approximately 130 meters from Hotel O Shiv Residency.
+                *Approximately 130 metres from Hotel O Shiv Residency — for
+                reference only.
               </p>
 
               <div className="addr-cta">

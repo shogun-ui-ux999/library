@@ -74,6 +74,45 @@
   gap: 10px;
 }
 
+/* Dense layout for the confirmed column — 2-up grid on desktop */
+.t-list-dense {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.t-list-dense .t-item {
+  padding: 0.85rem 1rem;
+}
+.t-list-dense .t-title {
+  font-size: 0.9rem;
+}
+.t-list-dense .t-desc {
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+/* Call-to-confirm box in the TBC column */
+.t-confirm-box {
+  margin-top: 1.6rem;
+  padding-top: 1.6rem;
+  border-top: 1px dashed rgba(243, 244, 246, 0.18);
+  display: grid;
+  gap: 1.1rem;
+  justify-items: start;
+}
+.t-confirm-copy {
+  color: var(--silver);
+  font-weight: 300;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  max-width: 40ch;
+}
+.t-confirm-num {
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--amber);
+}
+
 .t-item {
   position: relative;
   display: flex;
@@ -210,6 +249,9 @@
 /* Responsive */
 @media (max-width: 900px) {
   .t-grid {
+    grid-template-columns: 1fr;
+  }
+  .t-list-dense {
     grid-template-columns: 1fr;
   }
 }

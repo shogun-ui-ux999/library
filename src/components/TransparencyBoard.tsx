@@ -1,15 +1,66 @@
 import { Reveal } from "./Reveal";
-import { Check } from "./Icons";
+import { Check, Phone } from "./Icons";
 import "./TransparencyBoard.css";
 
-const VERIFIED = [
+type Facility = { t: string; d: string };
+
+/**
+ * CONFIRMED facilities — provided directly by the library.
+ * Nothing here is assumed; items without confirmation live in the
+ * "Currently Being Verified" column below.
+ */
+const CONFIRMED: Facility[] = [
   {
     t: "24/7 Access",
     d: "Open 24 hours a day, 7 days a week — including late nights and early mornings.",
   },
   {
+    t: "Air Conditioning",
+    d: "Yes — the reading hall is air-conditioned, with fans for extra airflow.",
+  },
+  {
+    t: "High-Speed Wi-Fi",
+    d: "Yes — wireless internet is available for members.",
+  },
+  {
+    t: "Individual Cabins",
+    d: "Yes — dedicated individual study cabins.",
+  },
+  {
+    t: "Study Lamps",
+    d: "Yes — a study lamp on every desk.",
+  },
+  {
+    t: "Charging Points",
+    d: "Yes — charging points at every desk.",
+  },
+  {
+    t: "Locker Facilities",
+    d: "Yes — lockers are available for members.",
+  },
+  {
+    t: "Power Backup",
+    d: "Yes — high-capacity battery backup keeps the space running through power cuts.",
+  },
+  {
+    t: "CCTV Surveillance",
+    d: "Yes — the space is kept under continuous CCTV surveillance.",
+  },
+  {
+    t: "Drinking Water",
+    d: "Yes — drinking water is available.",
+  },
+  {
+    t: "Separate Washrooms",
+    d: "Yes — separate male and female washrooms.",
+  },
+  {
+    t: "Parking",
+    d: "Yes — parking is available.",
+  },
+  {
     t: "Convenient Namkum Location",
-    d: "1st floor, Kamla Enclave at Sadabahar Chowk, beside Katyayni Sweets.",
+    d: "1st floor, Kamla Enclave at Sadabahar Chowk — an easy-to-find landmark spot.",
   },
   {
     t: "Dedicated Environment",
@@ -21,40 +72,27 @@ const VERIFIED = [
   },
 ];
 
-const UNVERIFIED = ["Air Conditioning", "Wi-Fi", "Lockers", "Parking", "Washrooms"];
+/** No confirmation yet — listed honestly as pending. */
+const PENDING = ["Newspaper / Magazine Availability"];
 
 export function TransparencyBoard() {
   return (
     <section
       className="section transparency"
       id="facilities"
-      aria-label="Facilities and transparency board"
+      aria-label="Facilities and study environment"
     >
       <div className="container">
-        <Reveal variant="fade" as="p" className="kicker">
-          <span className="k-idx">03</span> Facilities · Transparency Board
-        </Reveal>
-
-        <Reveal variant="up" as="h2" className="h2 t-h2">
-          <span className="h2-sans-line">
-            What you can <span className="accent serif">count on.</span>
-          </span>
-        </Reveal>
-        <Reveal variant="up" delay={120} as="p" className="section-lede">
-          Every claim on this page is either confirmed or openly marked as unverified.
-          Nothing here is padded with assumptions — that&rsquo;s the point.
-        </Reveal>
-
         <div className="t-grid">
-          {/* ---------- Verified column ---------- */}
+          {/* ---------- Confirmed & Known ---------- */}
           <div className="t-col">
-            <Reveal as="h3" variant="up" className="t-heading">
-              <span className="t-badge t-badge-verified mono">Verified &amp; Confirmed</span>
+            <Reveal as="h2" variant="up" className="t-heading">
+              <span className="t-badge t-badge-verified mono">Confirmed &amp; Known</span>
             </Reveal>
 
-            <ul className="t-list">
-              {VERIFIED.map((item, i) => (
-                <Reveal as="li" variant="up" delay={i * 90} className="t-item verified-item" key={item.t}>
+            <ul className="t-list t-list-dense">
+              {CONFIRMED.map((item, i) => (
+                <Reveal as="li" variant="up" delay={Math.min(i, 8) * 60} className="t-item verified-item" key={item.t}>
                   <span className="t-check" aria-hidden="true">
                     <Check size={13} />
                   </span>
@@ -68,14 +106,14 @@ export function TransparencyBoard() {
             </ul>
           </div>
 
-          {/* ---------- Awaiting confirmation column ---------- */}
+          {/* ---------- Currently Being Verified ---------- */}
           <div className="t-col t-col-tbc">
-            <Reveal as="h3" variant="up" className="t-heading">
-              <span className="t-badge t-badge-tbc mono">Awaiting Confirmation</span>
+            <Reveal as="h2" variant="up" className="t-heading">
+              <span className="t-badge t-badge-tbc mono">Currently Being Verified</span>
             </Reveal>
 
             <ul className="t-list">
-              {UNVERIFIED.map((name, i) => (
+              {PENDING.map((name, i) => (
                 <Reveal
                   as="li"
                   variant="up"
@@ -88,20 +126,33 @@ export function TransparencyBoard() {
                   <div className="t-body">
                     <p className="t-title">{name}</p>
                     <div className="t-tooltip" role="tooltip">
-                      Facility status is currently being verified with management. Call{" "}
-                      <a href="tel:+917070549845">+91 70705 49845</a> to confirm specific amenities.
+                      This facility has not been publicly verified yet. Please
+                      call the library to confirm.
                     </div>
                   </div>
                   <span className="t-status t-status-tbc mono" aria-hidden="true">TBC</span>
                 </Reveal>
               ))}
             </ul>
+
+            <Reveal variant="up" delay={140} className="t-confirm-box">
+              <p className="t-confirm-copy">
+                Every confirmed item above was checked directly with the
+                library. If anything you need isn&rsquo;t listed, one quick
+                call settles it.
+              </p>
+              <a className="btn btn-primary" href="tel:+917070549845">
+                Call to Confirm Facilities <Phone size={15} />
+              </a>
+              <p className="mono t-confirm-num">+91 70705 49845</p>
+            </Reveal>
           </div>
         </div>
 
         <Reveal variant="fade" delay={150} as="p" className="footnote t-footnote">
-          Status as of October 2026 · Sourced from public directory listings ·
-          Amenities may change; always call ahead for the latest.
+          Status as of October 2026 · Confirmed items were verified directly
+          with the library · Amenities may change; always call ahead for the
+          latest.
         </Reveal>
       </div>
     </section>

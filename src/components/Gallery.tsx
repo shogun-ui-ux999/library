@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Reveal, Line } from "./Reveal";
+import { Reveal } from "./Reveal";
 import {
   DeskIcon,
   ShelfIcon,
@@ -18,15 +18,13 @@ type Plate = {
 const ROW_A: Plate[] = [
   { icon: <DeskIcon size={44} />, label: "Study Area", plate: "Plate 01" },
   { icon: <BookIcon size={44} />, label: "Reading Desks", plate: "Plate 02" },
-  { icon: <LampIcon size={44} />, label: "Lamp-Lit Corners", plate: "Plate 03" },
-  { icon: <ShelfIcon size={44} />, label: "Bookshelves", plate: "Plate 04" },
+  { icon: <LampIcon size={44} />, label: "Quiet Zones", plate: "Plate 03" },
 ];
 
 const ROW_B: Plate[] = [
-  { icon: <DoorIcon size={44} />, label: "Entrance & Lobby", plate: "Plate 05" },
-  { icon: <LampIcon size={44} />, label: "Quiet Zones", plate: "Plate 06" },
-  { icon: <DeskIcon size={44} />, label: "Individual Seats", plate: "Plate 07" },
-  { icon: <BookIcon size={44} />, label: "Reference Shelf", plate: "Plate 08" },
+  { icon: <DoorIcon size={44} />, label: "Entrance", plate: "Plate 04" },
+  { icon: <ShelfIcon size={44} />, label: "Library Atmosphere", plate: "Plate 05" },
+  { icon: <LampIcon size={44} />, label: "Night Study Space", plate: "Plate 06" },
 ];
 
 function PlateCard({ plate }: { plate: Plate }) {
@@ -61,25 +59,6 @@ function MarqueeRow({ plates, reverse = false }: { plates: Plate[]; reverse?: bo
 export function Gallery() {
   return (
     <section className="section gallery" id="gallery" aria-label="Concept gallery">
-      <div className="container">
-        <Reveal variant="fade" as="p" className="kicker">
-          <span className="k-idx">06</span> Gallery · The Concept Space
-        </Reveal>
-
-        <Reveal as="h2" variant="clip" className="h2 gallery-h2">
-          <Line index={0}>
-            <span className="g-sans">The space, </span>
-            <span className="g-serif accent serif">in blueprint.</span>
-          </Line>
-        </Reveal>
-
-        <Reveal variant="up" delay={120} as="p" className="section-lede">
-          We&rsquo;d rather show you an honest blueprint than a borrowed
-          photograph. These plates mark what each corner of the library is
-          for — real photography of the space is coming soon.
-        </Reveal>
-      </div>
-
       <Reveal variant="fade" delay={180} className="marquee-stack">
         <MarqueeRow plates={ROW_A} />
         <MarqueeRow plates={ROW_B} reverse />

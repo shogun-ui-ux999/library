@@ -3,6 +3,7 @@ import { useRanchiClock } from "../hooks/useRanchiClock";
 import { useMagnetic } from "../hooks/useMagnetic";
 import { Reveal, Line } from "./Reveal";
 import { ArrowRight, Phone } from "./Icons";
+import { Link } from "../router";
 import "./Hero.css";
 
 const MAPS_URL = "https://maps.app.goo.gl/W3mpeq8EDtGj3rn9A";
@@ -39,12 +40,6 @@ export function Hero() {
 
       <header className="hero-top">
         <div className="hero-brand">
-          <a className="wordmark" href="#top" aria-label="AR Smart Library — home">
-            <span className="wm-ar serif">AR</span>
-            <span className="wm-rest">
-              Smart <em>Library</em>
-            </span>
-          </a>
           <span className="open-pill" role="status">
             <span className="pulse-dot" aria-hidden="true" />
             Open Now
@@ -85,9 +80,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal variant="up" delay={650} as="p" className="hero-sub">
-            AR Smart Library is a dedicated reading &amp; study space in Namkum,
-            Ranchi — open 24 hours a day, 7 days a week. Walk in at any hour.
-            The desk lamp is always on.
+            Your 24/7 Study Space in Namkum, Ranchi.
           </Reveal>
         </div>
 
@@ -133,12 +126,13 @@ export function Hero() {
           onMouseLeave={secondary.onMouseLeave}
           className="btn btn-glass"
           href={PHONE_HREF}
+          aria-label="Call now: +91 70705 49845"
         >
-          Call +91 70705 49845 <Phone size={16} />
+          Call Now <Phone size={16} />
         </a>
-        <a className="text-link hero-cta-link" href="#membership">
-          Enquire about membership
-        </a>
+        <Link to="/membership" className="text-link hero-cta-link">
+          Explore Membership
+        </Link>
       </Reveal>
 
       <div className="hero-scroll-cue mono" aria-hidden="true">
