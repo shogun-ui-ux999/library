@@ -132,7 +132,9 @@
     0 0 26px -6px rgba(229, 169, 59, 0.4);
 }
 
-/* --- Burger --- */
+/* --- Burger ---
+   Touch-friendly target on coarse-pointer devices, subtle first-use
+   hint ring on narrow screens until the menu has been opened once. */
 .nv-burger {
   display: none;
   position: relative;
@@ -143,7 +145,14 @@
   border: 1px solid var(--line-bright);
   border-radius: 999px;
   cursor: pointer;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (pointer: coarse) {
+  .nv-burger {
+    width: 48px;
+    height: 48px;
+  }
 }
 
 .nv-burger:hover {
@@ -178,6 +187,53 @@
   top: 20px;
   transform: translateX(-50%) rotate(-45deg);
   background: var(--amber);
+}
+
+.nv-burger-hint {
+  box-shadow: 0 0 0 0 rgba(229, 169, 59, 0);
+  animation: burger-hint-pulse 1.8s ease-in-out 2;
+}
+
+@keyframes burger-hint-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(229, 169, 59, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(229, 169, 59, 0);
+  }
+}
+
+.nv-menu-hint {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 8px);
+  transform: translateY(-50%);
+  padding: 0.32rem 0.55rem;
+  border: 1px solid var(--amber-line);
+  border-radius: 999px;
+  background: rgba(10, 10, 11, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber-soft);
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0;
+  animation: nv-hint-in 0.5s ease 0.15s both;
+  animation-fill-mode: both;
+}
+
+@keyframes nv-hint-in {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
 }
 
 /* ============================================================
@@ -316,6 +372,57 @@
 
   .nv-burger {
     display: block;
+  }
+
+  /* Show the Menu affordance only when there's a little room to its left.
+     When the desktop CTA is also hidden, the hint sits closer so the burger
+     plus menu cue stay grouped. */
+  .nv-menu-hint {
+    display: none;
+  }
+
+  .nv-cta {
+    display: block;
+  }
+}
+
+@media (max-width: 460px) {
+  .nv-cta {
+    display: none;
+  }
+
+  .nv-mark {
+    width: 28px;
+    height: 28px;
+  }
+
+  .nv-rest {
+    font-size: 0.82rem;
+  }
+
+  .nv-menu-hint {
+    display: block;
+  }
+
+  .nv-right {
+    gap: 0.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mmenu,
+  .mmenu-item,
+  .mmenu-foot {
+    animation: none;
+  }
+
+  .nv-burger-hint {
+    animation: none;
+  }
+
+  .nv-menu-hint {
+    animation: none;
+    opacity: 1;
   }
 }
 
