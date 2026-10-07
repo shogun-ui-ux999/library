@@ -123,9 +123,13 @@
 }
 
 .nv-cta {
-  padding: 0.62rem 1.15rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
+  padding: 0.85rem 1.5rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 8px 30px -10px rgba(229, 169, 59, 0.65),
+    0 0 26px -6px rgba(229, 169, 59, 0.4);
 }
 
 /* --- Burger --- */
@@ -301,8 +305,11 @@
   color: var(--silver-dim);
 }
 
-/* --- Breakpoints --- */
-@media (max-width: 979px) {
+/* --- Breakpoints ---
+   The 8 mono links (~490px of fixed text) plus a dominant CTA only fit
+   the container above ~1150px, so the editorial burger menu takes over
+   below 1180px to keep the navbar from crowding or clipping. */
+@media (max-width: 1179px) {
   .nv-links {
     display: none;
   }
