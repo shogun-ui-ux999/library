@@ -133,6 +133,7 @@
 
 .nv-toggle-label {
   font-size: 0.6rem;
+  font-weight: 500;
   line-height: 1;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -165,25 +166,55 @@
   }
 }
 
-.nv-toggle::before,
-.nv-toggle::after {
-  content: "";
+/* Icon stack: two crisp SVGs crossfade/rotate between menu and close. */
+.nv-toggle-icons {
+  position: relative;
   display: block;
-  width: 14px;
-  height: 1.5px;
-  border-radius: 2px;
-  background: var(--parchment);
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    background 0.3s ease;
+  width: 16px;
+  height: 16px;
 }
 
-.nv-toggle::after {
-  margin-top: 4px;
+.nv-t-icon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--parchment);
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.3s ease;
+}
+
+.nv-t-menu {
+  transform: rotate(0deg) scale(1);
+}
+
+.nv-t-close {
+  transform: rotate(-90deg) scale(0.5);
+  opacity: 0;
+  color: var(--amber);
+}
+
+.nv-t-icon.is-hidden {
+  opacity: 0;
+}
+
+.nv-t-menu.is-hidden {
+  transform: rotate(90deg) scale(0.5);
+}
+
+.nv-toggle[aria-expanded="true"] .nv-t-close {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
 }
 
 .nv-toggle:hover {
   border-color: var(--amber-line);
+}
+
+.nv-toggle:hover .nv-t-icon {
+  color: var(--amber-soft);
 }
 
 .nv-toggle:active {
@@ -195,16 +226,6 @@
   box-shadow:
     0 0 0 3px rgba(229, 169, 59, 0.14),
     0 0 20px -6px rgba(229, 169, 59, 0.55);
-}
-
-.nv-toggle[aria-expanded="true"]::before {
-  transform: translateY(2.75px) rotate(45deg);
-  background: var(--amber);
-}
-
-.nv-toggle[aria-expanded="true"]::after {
-  transform: translateY(-2.75px) rotate(-45deg);
-  background: var(--amber);
 }
 
 /* --- Drop-down row with the SAME links (mobile only) --- */
@@ -321,8 +342,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .nv-toggle,
-  .nv-toggle::before,
-  .nv-toggle::after,
+  .nv-t-icon,
   .nv-companion,
   .nv-companion .nv-link {
     animation: none !important;
