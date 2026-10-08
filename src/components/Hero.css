@@ -351,13 +351,6 @@
 }
 
 /* ---------- Responsive ---------- */
-/* The navbar wraps into two rows below 1180px; keep the hero clear of it. */
-@media (max-width: 1179px) {
-  .hero {
-    padding-top: 7.4rem;
-  }
-}
-
 @media (max-width: 960px) {
   .hero-mid {
     grid-template-columns: 1fr;

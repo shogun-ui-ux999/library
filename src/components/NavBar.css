@@ -1,10 +1,11 @@
 /* ============================================================
    Fixed top navigation — dark glass, thin amber-lined, minimal
-   Desktop: wordmark | 8 mono links | Call Now.
-   Below 1180px the SAME bar wraps: wordmark + Call Now on the
-   first row and the SAME links as the PC version in a slim,
-   horizontally scrollable strip underneath — no burger button,
-   no separate menu screen.
+   Desktop: wordmark | 8 nav links.
+   Mobile (< 1180px): wordmark | compact toggle pill.
+   The toggle sits on the right side of the navbar. Tap it to push
+   the SAME nav links down inline inside the navbar (a single compact
+   row beneath the bar), with the amber active underline, instead of
+   a scrollstrip or separate menu. The bar stays one row.
    ============================================================ */
 
 .navbar {
@@ -70,7 +71,7 @@
   color: var(--silver);
 }
 
-/* --- Links — visible on desktop AND mobile --- */
+/* --- Links — visible on every viewport (pushed inline on mobile) --- */
 .nv-links {
   display: flex;
   align-items: center;
@@ -120,48 +121,108 @@
   transform: scaleX(1);
 }
 
-/* --- Call Now --- */
-.nv-cta {
-  padding: 0.85rem 1.5rem;
-  font-size: 0.78rem;
-  letter-spacing: 0.16em;
-  flex: none;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    0 8px 30px -10px rgba(229, 169, 59, 0.65),
-    0 0 26px -6px rgba(229, 169, 59, 0.4);
+/* --- Compact toggle pill (right side on mobile) --- */
+.nv-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--line-bright);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* --- Mobile: full nav, no burger ---
-   One row can't hold wordmark + 8 links + CTA, so the row wraps:
-   Call Now sits beside the wordmark and the links become a slim
-   scrollable strip — same links, same look as the PC version. */
+@media (pointer: coarse) {
+  .nv-toggle {
+    min-width: 44px;
+    height: 36px;
+  }
+}
+
+.nv-toggle::before {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 1.5px;
+  background: var(--parchment);
+  margin-inline: auto;
+  transition: transform 0.3s ease;
+}
+
+.nv-toggle::after {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 1.5px;
+  background: var(--parchment);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nv-toggle:hover {
+  border-color: var(--amber-line);
+}
+
+.nv-toggle[aria-expanded="true"]::before {
+  margin-inline: 0;
+  transform: translateY(8px) rotate(45deg);
+  background: var(--amber);
+}
+
+.nv-toggle[aria-expanded="true"]::after {
+  transform: translateY(-8px) rotate(-45deg);
+  background: var(--amber);
+  opacity: 0;
+}
+
+/* --- Right side: toggle (on mobile) --- */
+.nv-right {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex: none;
+}
+
+/* --- Mobile: wordmark + toggle; links push inline --- */
 @media (max-width: 1179px) {
   .nv-row {
-    flex-wrap: wrap;
     height: auto;
-    padding: 0.8rem 0 0;
-    gap: 0.7rem 1.4rem;
-  }
-
-  .nv-cta {
-    padding: 0.6rem 1.05rem;
-    font-size: 0.72rem;
+    padding: 0.55rem 0;
+    gap: 0;
   }
 
   .nv-links {
-    order: 3;
-    flex: 1 1 100%;
-    gap: 1.35rem;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    padding: 0.15rem 0 0.55rem;
-    border-top: 1px solid var(--line);
+    display: none;
   }
 
-  .nv-links::-webkit-scrollbar {
-    display: none;
+  .nv-toggle {
+    display: inline-flex;
+  }
+
+  /* The link row that drops inline when the toggle is opened. */
+  .nv-companion {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: baseline;
+    gap: 1.1rem 1.6rem;
+    padding: 0.55rem 0 0.65rem;
+    border-top: 1px solid var(--amber-line);
+    background: rgba(229, 169, 59, 0.06);
+    box-shadow: 0 4px 18px -8px rgba(229, 169, 59, 0.35);
+    animation: nv-companion-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .nv-companion .nv-link {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+  }
+
+  .nv-companion .nv-link::after {
+    transition-delay: 0.08s;
   }
 
   /* Solid-enough resting bar so the navbar reads clearly over the hero. */
@@ -184,18 +245,26 @@
     font-size: 0.8rem;
   }
 
-  .nv-cta {
-    padding: 0.5rem 0.85rem;
-    font-size: 0.66rem;
-    letter-spacing: 0.12em;
-  }
-
-  .nv-links {
-    gap: 1rem;
-  }
-
-  .nv-link {
+  .nv-companion .nv-link {
     font-size: 0.6rem;
     letter-spacing: 0.14em;
+  }
+}
+
+@media (max-width: 460px) and (pointer: coarse) {
+  .nv-toggle {
+    min-width: 44px;
+    height: 36px;
+  }
+}
+
+@keyframes nv-companion-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
