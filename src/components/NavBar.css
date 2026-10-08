@@ -1,11 +1,10 @@
 /* ============================================================
    Fixed top navigation — dark glass, thin amber-lined, minimal
-   Desktop: wordmark | 8 nav links.
+   Desktop: wordmark | 8 nav links (toggle hidden).
    Mobile (< 1180px): wordmark | compact toggle pill.
-   The toggle sits on the right side of the navbar. Tap it to push
-   the SAME nav links down inline inside the navbar (a single compact
-   row beneath the bar), with the amber active underline, instead of
-   a scrollstrip or separate menu. The bar stays one row.
+   Tapping the toggle reveals the SAME nav links as a compact
+   full-width row directly under the bar, with the amber active
+   underline. One row at rest, no scrollstrip, no separate menu.
    ============================================================ */
 
 .navbar {
@@ -71,7 +70,7 @@
   color: var(--silver);
 }
 
-/* --- Links — visible on every viewport (pushed inline on mobile) --- */
+/* --- Links — visible on desktop; on mobile they live in the drop-down --- */
 .nv-links {
   display: flex;
   align-items: center;
@@ -121,7 +120,20 @@
   transform: scaleX(1);
 }
 
-/* --- Compact toggle pill (right side on mobile) --- */
+/* --- Toggle pill + Menu/Close label — hidden on desktop --- */
+.nv-toggle-wrap {
+  display: none;
+  align-items: center;
+  gap: 0.45rem;
+  flex: none;
+}
+
+.nv-toggle-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--silver);
+}
+
 .nv-toggle {
   display: none;
   align-items: center;
@@ -178,36 +190,36 @@
   opacity: 0;
 }
 
-/* --- Right side: toggle (on mobile) --- */
-.nv-right {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  flex: none;
+/* --- Drop-down row with the SAME links (mobile only) --- */
+.nv-companion {
+  display: none;
+  width: 100%;
 }
 
-/* --- Mobile: wordmark + toggle; links push inline --- */
+/* --- Mobile: wordmark + toggle; links drop in below the bar --- */
 @media (max-width: 1179px) {
   .nv-row {
     height: auto;
     padding: 0.55rem 0;
-    gap: 0;
   }
 
   .nv-links {
     display: none;
   }
 
+  .nv-toggle-wrap {
+    display: inline-flex;
+  }
+
   .nv-toggle {
     display: inline-flex;
   }
 
-  /* The link row that drops inline when the toggle is opened. */
   .nv-companion {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: baseline;
+    justify-content: flex-start;
     gap: 1.1rem 1.6rem;
     padding: 0.55rem 0 0.65rem;
     border-top: 1px solid var(--amber-line);

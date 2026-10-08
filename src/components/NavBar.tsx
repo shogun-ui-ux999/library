@@ -2,10 +2,9 @@
    Fixed top navigation — dark glass, thin amber-lined, minimal
    Desktop: wordmark | 8 nav links.
    Mobile (< 1180px): wordmark | compact toggle pill.
-   The toggle sits on the right side of the navbar. Tap it to push
-   the SAME nav links down inline inside the navbar (a single compact
-   row beneath the bar), with the amber active underline, instead of
-   a scrollstrip or separate menu. The bar stays one row.
+   Tapping the toggle reveals the SAME nav links as a compact row
+   directly under the bar (inline drop-down, amber active underline).
+   Tapping a link navigates and closes the drop-down.
    ============================================================ */
 
 import { useEffect, useState } from "react";
@@ -13,7 +12,6 @@ import { Link, useRoute } from "../router";
 
 import { Logo } from "./Logo";
 import "./NavBar.css";
-
 
 const PAGES: { label: string; to: string }[] = [
   { label: "Home", to: "/" },
@@ -44,7 +42,6 @@ export function NavBar() {
   const path = useRoute();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const isNarrow = typeof window !== "undefined" && window.innerWidth < 1180;
 
   // Glass density increases slightly once the page scrolls.
   useEffect(() => {
@@ -54,59 +51,62 @@ export function NavBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Define isNarrow only for SSR safety.
-  if (typeof window === "undefined") {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    void isNarrow;
-  }
-
   return (
     <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
-      <div className="container nv-row">
-        <Wordmark />
+      <div className="container">
+        <div className="nv-row">
+          <Wordmark />
 
-        <nav className="nv-links" aria-label="Primary">
-          {PAGES.map((p) => (
-            <Link
-              key={p.to}
-              to={p.to}
-              className={`nv-link mono ${path === p.to ? "active" : ""}`}
-              aria-current={path === p.to ? "page" : undefined}
-            >
-              {p.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="nv-right">
-          {isNarrow && (
-            <span className="nv-toggle-wrap">
-              <button
-                type="button"
-                className="nv-toggle"
-                aria-expanded={open}
-                aria-controls="nv-inline-links"
-                aria-label={open ? "Close menu" : "Open menu"}
-                onClick={() => setOpen((v) => !v)}
+          <nav className="nv-links" aria-label="Primary">
+            {PAGES.map((p) => (
+              <Link
+                key={p.to}
+                to={p.to}
+                className={`nv-link mono ${path === p.to ? "active" : ""}`}
+                aria-current={path === p.to ? "page" : undefined}
               >
-                <span aria-hidden="true" />
-              </button>
-              <span className="nv-toggle-label mono" aria-live="polite">
-                {open ? "Close" : "Menu"}
-              </span>
-            </span>
-          )}
+                {p.label}
+              </Link>
+            ))}
+          </nav>
 
-          {isNarrow && open && (
-            <div
-              className="nv-companion"
-              id="nv-inline-links"
-              role="navigation"
-              aria-label="Mobile navigation"
-              hidden={false}
-            />
-          )}
+          <span className="nv-toggle-wrap">
+            <button
+              type="button"
+              className="nv-toggle"
+              aria-expanded={open}
+              aria-controls="nv-inline-links"
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((v) => !v)}
+            >
+              <span aria-hidden="true" />
+            </button>
+            <span className="nv-toggle-label mono" aria-live="polite">
+              {open ? "Close" : "Menu"}
+            </span>
+          </span>
         </div>
+
+        {/* Full-width row directly under the bar: the SAME links. */}
+        {open && (
+          <nav
+            className="nv-companion"
+            id="nv-inline-links"
+            aria-label="Mobile navigation"
+          >
+            {PAGES.map((p) => (
+              <Link
+                key={p.to}
+                to={p.to}
+                className={`nv-link mono ${path === p.to ? "active" : ""}`}
+                aria-current={path === p.to ? "page" : undefined}
+                onClick={() => setOpen(false)}
+              >
+                {p.label}
+              </Link>
+            ))}
+          </nav>
+        )}
       </div>
     </header>
   );
