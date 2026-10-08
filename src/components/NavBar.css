@@ -132,6 +132,11 @@
   font-size: 0.6rem;
   letter-spacing: 0.14em;
   color: var(--silver);
+  transition: color 0.3s ease;
+}
+
+.nv-toggle[aria-expanded="true"] + .nv-toggle-label {
+  color: var(--amber-soft);
 }
 
 .nv-toggle {
@@ -155,39 +160,46 @@
   }
 }
 
-.nv-toggle::before {
-  content: "";
-  display: block;
-  width: 14px;
-  height: 1.5px;
-  background: var(--parchment);
-  margin-inline: auto;
-  transition: transform 0.3s ease;
-}
-
+.nv-toggle::before,
 .nv-toggle::after {
   content: "";
   display: block;
   width: 14px;
   height: 1.5px;
+  border-radius: 2px;
   background: var(--parchment);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s ease;
+}
+
+.nv-toggle::after {
+  margin-top: 4px;
 }
 
 .nv-toggle:hover {
   border-color: var(--amber-line);
 }
 
+.nv-toggle:active {
+  transform: scale(0.92);
+}
+
+.nv-toggle[aria-expanded="true"] {
+  border-color: var(--amber-line);
+  box-shadow:
+    0 0 0 3px rgba(229, 169, 59, 0.14),
+    0 0 20px -6px rgba(229, 169, 59, 0.55);
+}
+
 .nv-toggle[aria-expanded="true"]::before {
-  margin-inline: 0;
-  transform: translateY(8px) rotate(45deg);
+  transform: translateY(2.75px) rotate(45deg);
   background: var(--amber);
 }
 
 .nv-toggle[aria-expanded="true"]::after {
-  transform: translateY(-8px) rotate(-45deg);
+  transform: translateY(-2.75px) rotate(-45deg);
   background: var(--amber);
-  opacity: 0;
 }
 
 /* --- Drop-down row with the SAME links (mobile only) --- */
@@ -225,13 +237,23 @@
     border-top: 1px solid var(--amber-line);
     background: rgba(229, 169, 59, 0.06);
     box-shadow: 0 4px 18px -8px rgba(229, 169, 59, 0.35);
-    animation: nv-companion-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: nv-drop-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .nv-companion .nv-link {
     font-size: 0.62rem;
     letter-spacing: 0.16em;
+    animation: nv-link-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
+
+  .nv-companion .nv-link:nth-child(1) { animation-delay: 0.05s; }
+  .nv-companion .nv-link:nth-child(2) { animation-delay: 0.085s; }
+  .nv-companion .nv-link:nth-child(3) { animation-delay: 0.12s; }
+  .nv-companion .nv-link:nth-child(4) { animation-delay: 0.155s; }
+  .nv-companion .nv-link:nth-child(5) { animation-delay: 0.19s; }
+  .nv-companion .nv-link:nth-child(6) { animation-delay: 0.225s; }
+  .nv-companion .nv-link:nth-child(7) { animation-delay: 0.26s; }
+  .nv-companion .nv-link:nth-child(8) { animation-delay: 0.295s; }
 
   .nv-companion .nv-link::after {
     transition-delay: 0.08s;
@@ -270,13 +292,35 @@
   }
 }
 
-@keyframes nv-companion-in {
+@keyframes nv-drop-in {
   from {
     opacity: 0;
-    transform: translateY(-4px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes nv-link-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-toggle,
+  .nv-toggle::before,
+  .nv-toggle::after,
+  .nv-companion,
+  .nv-companion .nv-link {
+    animation: none !important;
+    transition: none !important;
   }
 }
