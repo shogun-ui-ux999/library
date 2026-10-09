@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Reveal } from "./Reveal";
-import { SweetsIcon, Clock, MapPin } from "./Icons";
+import { SweetsIcon, Clock, MapPin, ArrowUpRight } from "./Icons";
+import { useTilt } from "../hooks/useTilt";
 import { Link } from "../router";
 import "./About.css";
 
@@ -51,6 +53,58 @@ const ABOUT_FACTS = [
   { icon: <SweetsIcon size={14} />, label: "Beside Katyayni Sweets, Sadabahar Chowk" },
   { icon: <Clock size={14} />, label: "Open 24 hours, 7 days a week" },
 ];
+
+/** The three pillars — interactive cards with the architectural line look. */
+const PILLARS = [
+  {
+    title: "24/7 Access",
+    desc: "Dedicated round-the-clock study environment for day & night aspirants",
+  },
+  {
+    title: "Zero Distraction",
+    desc: "Soundproofed silent zones, strict noise discipline, ergonomic seating",
+  },
+  {
+    title: "Modern Amenities",
+    desc: "High-speed optical fiber, power sockets at every desk, full power backup",
+  },
+];
+
+function Pillar({ title, desc, index }: { title: string; desc: string; index: number }) {
+  const tilt = useTilt<HTMLDivElement>(4);
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Reveal variant="up" delay={index * 110} className="pillar-slot">
+      <div
+        ref={tilt.ref}
+        onMouseMove={tilt.onMouseMove}
+        onMouseLeave={tilt.onMouseLeave}
+        className="pillar-lift"
+      >
+        <button
+          type="button"
+          className={`pillar${open ? " is-open" : ""}`}
+          aria-expanded={open}
+          onClick={() => setOpen((o) => !o)}
+        >
+          <span className="pillar-top">
+            <span className="pillar-idx mono">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span className="pillar-arrow" aria-hidden="true">
+              <ArrowUpRight size={16} />
+            </span>
+          </span>
+          <span className="pillar-title">{title}</span>
+          <span className="pillar-desc">
+            <span className="pillar-desc-inner">{desc}</span>
+          </span>
+        </button>
+      </div>
+    </Reveal>
+  );
+}
 
 export function About() {
   return (
@@ -115,6 +169,18 @@ export function About() {
               Visit the Library <MapPin size={15} />
             </Link>
           </Reveal>
+        </div>
+      </div>
+
+      {/* Three interactive pillars — hover or tap to reveal */}
+      <div className="container about-pillars-wrap">
+        <Reveal variant="fade" as="p" className="kicker pillars-kicker">
+          Est. 2024 · Namkum · Ranchi — in three pillars
+        </Reveal>
+        <div className="about-pillars">
+          {PILLARS.map((p, i) => (
+            <Pillar key={p.title} title={p.title} desc={p.desc} index={i} />
+          ))}
         </div>
       </div>
     </section>

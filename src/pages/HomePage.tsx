@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { Hero } from "../components/Hero";
 import { BentoFacts } from "../components/BentoFacts";
 import { BookingForm } from "../components/BookingForm";
 import { Faq } from "../components/Faq";
 import { FinalCta } from "../components/FinalCta";
 import { Reveal, Line } from "../components/Reveal";
-import type { ShiftKey } from "../components/ShiftPasses";
 import { Check, Star, MapPin, ArrowUpRight, SweetsIcon } from "../components/Icons";
 import { Link } from "../router";
 import { useMagnetic } from "../hooks/useMagnetic";
@@ -262,19 +260,9 @@ function LocationPreview() {
 /* ------------------------------------------------------------------ */
 
 export function HomePage() {
-  const [reserveShift, setReserveShift] = useState<ShiftKey | null>(null);
-
-  const handleReserve = (shift: ShiftKey) => {
-    setReserveShift(shift);
-    document.getElementById("reserve")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
-
   return (
     <>
-      <Hero onReserve={handleReserve} />
+      <Hero />
       <main id="main">
         <BentoFacts />
         <AboutPreview />
@@ -282,7 +270,7 @@ export function HomePage() {
         <MembershipPreview />
         <ReviewsPreview />
         <LocationPreview />
-        <BookingForm selectedShift={reserveShift} />
+        <BookingForm />
         <Faq />
         <FinalCta />
       </main>
