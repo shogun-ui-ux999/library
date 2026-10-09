@@ -50,7 +50,7 @@ export function Faq() {
     <section className="section faq" id="faq" aria-label="Frequently asked questions">
       <div className="container">
         <Reveal variant="fade" as="p" className="kicker">
-          <span className="k-idx">07</span> FAQ
+          <span className="k-idx">08</span> FAQ
         </Reveal>
 
         <Reveal as="h2" variant="up" className="h2 faq-h2">

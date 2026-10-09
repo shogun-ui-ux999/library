@@ -1,0 +1,172 @@
+/* ----------------------------------------------------------
+   Reserve — booking form for the Study Shift Passes
+---------------------------------------------------------- */
+
+.reserve {
+  scroll-margin-top: 5.5rem; /* clears the fixed navbar on #reserve jumps */
+}
+
+.reserve-h2 {
+  max-width: 16ch;
+}
+
+.reserve-card {
+  margin-top: clamp(2rem, 4.5vh, 3rem);
+  max-width: 780px;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background:
+    linear-gradient(160deg, rgba(30, 30, 36, 0.9) 0%, rgba(17, 17, 20, 0.94) 100%);
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.9);
+}
+
+/* ---------- Form ---------- */
+.reserve-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem 1.2rem;
+}
+
+.rf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.rf-wide {
+  grid-column: 1 / -1;
+}
+
+.rf-field label {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+}
+.rf-optional {
+  color: var(--silver-ghost);
+  letter-spacing: 0.12em;
+}
+
+.rf-field input,
+.rf-field select {
+  width: 100%;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--line-bright);
+  border-radius: 9px;
+  background: rgba(10, 10, 11, 0.72);
+  color: var(--parchment);
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.rf-field input::placeholder {
+  color: var(--silver-ghost);
+}
+
+.rf-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.4rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--amber) 50%),
+    linear-gradient(135deg, var(--amber) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% + 1px),
+    calc(100% - 13px) calc(50% + 1px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.rf-field select:invalid,
+.rf-field select option[value=""] {
+  color: var(--silver-ghost);
+}
+.rf-field select option {
+  color: var(--parchment);
+  background: var(--midnight);
+}
+
+.rf-field input:focus,
+.rf-field select:focus {
+  outline: none;
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(229, 169, 59, 0.16);
+}
+
+.rf-submit {
+  grid-column: 1 / -1;
+  justify-content: center;
+  margin-top: 0.4rem;
+}
+
+.rf-note-text {
+  grid-column: 1 / -1;
+}
+
+/* ---------- Confirmation ---------- */
+.reserve-done {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+
+.rd-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  border-radius: 50%;
+  background: rgba(74, 222, 128, 0.08);
+  color: var(--open-green);
+}
+
+.rd-title {
+  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+  line-height: 1.2;
+  color: var(--parchment);
+}
+
+.rd-sub {
+  max-width: 52ch;
+  color: var(--silver);
+  font-weight: 300;
+  line-height: 1.7;
+}
+.rd-sub strong {
+  color: var(--amber-soft);
+  font-weight: 500;
+}
+
+.rd-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 1.1rem;
+  margin-top: 0.4rem;
+}
+
+.rd-again {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .reserve-form {
+    grid-template-columns: 1fr;
+  }
+  .rd-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
