@@ -2,10 +2,11 @@ import { useCallback, useEffect, useRef } from "react";
 import type { MouseEvent as ReactMouseEvent } from "react";
 
 /**
- * 3D tilt on mouse position — used by the Member Pass and the address card.
+ * 3D tilt on mouse position — used by the Member Pass, the address card,
+ * and the hero Study Shift Passes.
  * Applies perspective + rotateX/rotateY, springs back to flat on leave.
  */
-export function useTilt<T extends HTMLElement>(maxDeg = 8, scale = 1) {
+export function useTilt<T extends HTMLElement>(maxDeg = 8, scale = 1, perspective = 900) {
   const ref = useRef<T | null>(null);
   const raf = useRef(0);
 
@@ -20,14 +21,14 @@ export function useTilt<T extends HTMLElement>(maxDeg = 8, scale = 1) {
       const py = (e.clientY - r.top) / r.height - 0.5;
       cancelAnimationFrame(raf.current);
       raf.current = requestAnimationFrame(() => {
-        el.style.transform = `perspective(900px) rotateX(${(-py * maxDeg).toFixed(
+        el.style.transform = `perspective(${perspective}px) rotateX(${(-py * maxDeg).toFixed(
           2
         )}deg) rotateY(${(px * maxDeg).toFixed(2)}deg)${
           scale !== 1 ? ` scale(${scale})` : ""
         }`;
       });
     },
-    [maxDeg, scale]
+    [maxDeg, scale, perspective]
   );
 
   const onMouseLeave = useCallback(() => {

@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Hero } from "../components/Hero";
 import { BentoFacts } from "../components/BentoFacts";
+import { BookingForm } from "../components/BookingForm";
 import { Faq } from "../components/Faq";
 import { FinalCta } from "../components/FinalCta";
 import { Reveal, Line } from "../components/Reveal";
+import type { ShiftKey } from "../components/ShiftPasses";
 import { Check, Star, MapPin, ArrowUpRight, SweetsIcon } from "../components/Icons";
 import { Link } from "../router";
 import { useMagnetic } from "../hooks/useMagnetic";
@@ -99,7 +102,7 @@ function FacilitiesPreview() {
           <Reveal as="li" variant="fade" delay={380}>
             <p className="footnote">
               AC, Wi-Fi, cabins, lockers &amp; more on the Facilities page —
-              each marked confirmed or pending verification.
+              each one confirmed directly with the library.
             </p>
           </Reveal>
         </ul>
@@ -259,9 +262,19 @@ function LocationPreview() {
 /* ------------------------------------------------------------------ */
 
 export function HomePage() {
+  const [reserveShift, setReserveShift] = useState<ShiftKey | null>(null);
+
+  const handleReserve = (shift: ShiftKey) => {
+    setReserveShift(shift);
+    document.getElementById("reserve")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <>
-      <Hero />
+      <Hero onReserve={handleReserve} />
       <main id="main">
         <BentoFacts />
         <AboutPreview />
@@ -269,6 +282,7 @@ export function HomePage() {
         <MembershipPreview />
         <ReviewsPreview />
         <LocationPreview />
+        <BookingForm selectedShift={reserveShift} />
         <Faq />
         <FinalCta />
       </main>

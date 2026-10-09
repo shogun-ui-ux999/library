@@ -36,11 +36,6 @@
   background: linear-gradient(165deg, var(--midnight) 0%, var(--obsidian) 70%);
   padding: clamp(1.4rem, 2.6vw, 2.2rem);
 }
-.t-col-tbc {
-  background:
-    repeating-linear-gradient(-45deg, rgba(243, 244, 246, 0.014) 0 12px, transparent 12px 24px),
-    linear-gradient(165deg, var(--midnight) 0%, var(--obsidian) 70%);
-}
 
 .t-heading {
   margin-bottom: 1.5rem;
@@ -62,9 +57,10 @@
   background: rgba(229, 169, 59, 0.08);
   box-shadow: 0 0 22px -6px rgba(229, 169, 59, 0.5);
 }
-.t-badge-tbc {
-  color: var(--silver-dim);
-  border: 1px dashed rgba(243, 244, 246, 0.25);
+.t-badge-call {
+  color: var(--amber);
+  border: 1px solid rgba(229, 169, 59, 0.45);
+  background: rgba(229, 169, 59, 0.08);
 }
 
 .t-list {
@@ -91,7 +87,7 @@
   line-height: 1.55;
 }
 
-/* Call-to-confirm box in the TBC column */
+/* Call-to-confirm box */
 .t-confirm-box {
   margin-top: 1.6rem;
   padding-top: 1.6rem;
@@ -171,77 +167,6 @@
   border-radius: 2px;
   flex: none;
 }
-.t-status-tbc {
-  color: var(--silver-ghost);
-  border: 1px dashed rgba(243, 244, 246, 0.2);
-}
-
-/* Unverified rows */
-.tbc-item {
-  border-style: dashed;
-  border-color: rgba(243, 244, 246, 0.16);
-  background: transparent;
-  opacity: 0.72;
-  cursor: help;
-}
-.tbc-item:hover,
-.tbc-item:focus-visible,
-.tbc-item:focus-within {
-  opacity: 1;
-  border-color: rgba(243, 244, 246, 0.3);
-}
-.t-dash {
-  flex: none;
-  width: 22px;
-  height: 22px;
-  margin-top: 0.1rem;
-  position: relative;
-}
-.t-dash::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 4px;
-  right: 4px;
-  height: 1px;
-  background: var(--silver-ghost);
-}
-.tbc-item .t-title {
-  color: var(--silver);
-}
-
-/* Tooltip */
-.t-tooltip {
-  margin-top: 0.55rem;
-  font-size: 0.78rem;
-  font-weight: 300;
-  line-height: 1.6;
-  color: var(--silver-dim);
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transform: translateY(-4px);
-  transition:
-    max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.35s ease,
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.tbc-item:hover .t-tooltip,
-.tbc-item:focus-within .t-tooltip,
-.tbc-item:focus-visible .t-tooltip {
-  max-height: 140px;
-  opacity: 1;
-  transform: translateY(0);
-}
-.t-tooltip a {
-  color: var(--amber);
-  text-decoration-color: rgba(229, 169, 59, 0.4);
-  text-underline-offset: 3px;
-}
-.t-tooltip a:hover {
-  color: var(--amber-soft);
-}
-
 .t-footnote {
   margin-top: 2rem;
 }

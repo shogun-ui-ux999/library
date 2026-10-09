@@ -6,8 +6,8 @@ type Facility = { t: string; d: string };
 
 /**
  * CONFIRMED facilities — provided directly by the library.
- * Nothing here is assumed; items without confirmation live in the
- * "Currently Being Verified" column below.
+ * Nothing here is assumed; anything the library hasn't confirmed is
+ * simply left out, with a direct call-to-confirm fallback beside the list.
  */
 const CONFIRMED: Facility[] = [
   {
@@ -72,9 +72,6 @@ const CONFIRMED: Facility[] = [
   },
 ];
 
-/** No confirmation yet — listed honestly as pending. */
-const PENDING = ["Newspaper / Magazine Availability"];
-
 export function TransparencyBoard() {
   return (
     <section
@@ -106,34 +103,11 @@ export function TransparencyBoard() {
             </ul>
           </div>
 
-          {/* ---------- Currently Being Verified ---------- */}
-          <div className="t-col t-col-tbc">
+          {/* ---------- Call to confirm ---------- */}
+          <div className="t-col t-col-confirm">
             <Reveal as="h2" variant="up" className="t-heading">
-              <span className="t-badge t-badge-tbc mono">Currently Being Verified</span>
+              <span className="t-badge t-badge-call mono">One Quick Call</span>
             </Reveal>
-
-            <ul className="t-list">
-              {PENDING.map((name, i) => (
-                <Reveal
-                  as="li"
-                  variant="up"
-                  delay={i * 90}
-                  className="t-item tbc-item"
-                  key={name}
-                  tabIndex={0}
-                >
-                  <span className="t-dash" aria-hidden="true" />
-                  <div className="t-body">
-                    <p className="t-title">{name}</p>
-                    <div className="t-tooltip" role="tooltip">
-                      This facility has not been publicly verified yet. Please
-                      call the library to confirm.
-                    </div>
-                  </div>
-                  <span className="t-status t-status-tbc mono" aria-hidden="true">TBC</span>
-                </Reveal>
-              ))}
-            </ul>
 
             <Reveal variant="up" delay={140} className="t-confirm-box">
               <p className="t-confirm-copy">
