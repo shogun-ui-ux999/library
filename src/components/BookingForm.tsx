@@ -1,7 +1,6 @@
 import { useState } from "react";
-import type { FormEvent } from "react";
 import { Reveal } from "./Reveal";
-import { Check } from "./Icons";
+import { WhatsApp } from "./Icons";
 import "./BookingForm.css";
 
 const WHATSAPP_NUMBER = "917070549845";
@@ -13,8 +12,6 @@ type ShiftPill = {
   emoji: string;
   title: string;
   range: string;
-  /** Short name used inside the WhatsApp message text. */
-  wa: string;
 };
 
 /** The four study shifts offered as tactile pills. */
@@ -24,28 +21,24 @@ const SHIFT_PILLS: ShiftPill[] = [
     emoji: "☀️",
     title: "Morning",
     range: "06:00 – 14:00",
-    wa: "Morning",
   },
   {
     key: "afternoon",
     emoji: "🌤️",
     title: "Afternoon",
     range: "14:00 – 22:00",
-    wa: "Afternoon",
   },
   {
     key: "night",
     emoji: "🌙",
     title: "Night Owl",
     range: "22:00 – 06:00",
-    wa: "Night Owl",
   },
   {
     key: "day",
     emoji: "⚡",
     title: "24-Hour Pass",
     range: "Full day",
-    wa: "24-Hour",
   },
 ];
 
@@ -80,30 +73,22 @@ export function BookingForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [note, setNote] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [needsShift, setNeedsShift] = useState(false);
 
   const chosen = SHIFT_PILLS.find((p) => p.key === shift);
+  const ready = Boolean(chosen && name.trim());
 
-  const pickShift = (key: ShiftKey) => {
-    setShift(key);
-    setNeedsShift(false);
-    setSubmitted(false);
-  };
+  const pickShift = (key: ShiftKey) => setShift(key);
 
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!chosen) {
-      setNeedsShift(true);
-      return;
-    }
-    setSubmitted(true);
-  };
-
-  const waText = chosen
-    ? `Hi, I would like to reserve a seat at AR Smart Library for the ${chosen.wa} shift.`
-    : "Hi, I would like to reserve a seat at AR Smart Library.";
-  const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
+  // The slip's only action: open WhatsApp pre-filled with everything typed.
+  const waMessage = [
+    "Hello AR Smart Library, I would like to reserve a seat:",
+    `• Shift: ${chosen ? `${chosen.title} · ${chosen.range}` : "Not selected yet"}`,
+    `• Date: ${date ? prettyDate(date) : "Flexible"}`,
+    `• Name: ${name.trim() || "—"}`,
+    `• Phone: ${phone.trim() || "—"}`,
+    `• Note: ${note.trim() || "—"}`,
+  ].join("\n");
+  const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMessage)}`;
 
   return (
     <section className="section reserve" id="reserve" aria-label="Reserve a study shift">
@@ -126,7 +111,7 @@ export function BookingForm() {
             SLIP NO. <span>#AR-2024-{serial}</span>
           </p>
 
-          <form className="slip-form" onSubmit={onSubmit}>
+          <div className="slip-form">
             <div className="slip-shift" role="group" aria-labelledby="slip-shift-label">
               <span id="slip-shift-label" className="slip-label">
                 Study shift
@@ -151,11 +136,6 @@ export function BookingForm() {
                   </button>
                 ))}
               </div>
-              {needsShift && (
-                <p className="slip-hint" role="alert">
-                  Pick a shift first — then the slip is ready to send.
-                </p>
-              )}
             </div>
 
             <div className="slip-grid">
@@ -173,7 +153,6 @@ export function BookingForm() {
                 <span className="slip-label">Your name</span>
                 <input
                   type="text"
-                  required
                   autoComplete="name"
                   placeholder="e.g. Ananya Kumar"
                   value={name}
@@ -185,7 +164,6 @@ export function BookingForm() {
                 <span className="slip-label">Phone number</span>
                 <input
                   type="tel"
-                  required
                   autoComplete="tel"
                   placeholder="+91 …"
                   value={phone}
@@ -207,31 +185,21 @@ export function BookingForm() {
             </div>
 
             <div className="slip-actions">
-              <button type="submit" className="btn btn-primary slip-send">
-                Send Reservation Request
-              </button>
               <a
-                className="btn btn-glass slip-wa"
+                className="btn btn-primary slip-wa"
                 href={waHref}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span aria-hidden="true">💬</span> Reserve Instantly via WhatsApp
+                Reserve Instantly via WhatsApp <WhatsApp size={16} />
               </a>
             </div>
 
-            {submitted && (
-              <p className="slip-ready" role="status">
-                <Check size={14} /> Request ready — send it on WhatsApp, or call
-                and quote slip <strong>#AR-2024-{serial}</strong>.
-              </p>
-            )}
-
             <p className="footnote slip-note">
-              The slip is a request, not a confirmed booking — the library
-              replies on WhatsApp or by phone.
+              Opens directly in WhatsApp with your reservation details
+              pre-filled for instant confirmation.
             </p>
-          </form>
+          </div>
 
           <div className="slip-tear" aria-hidden="true" />
 
@@ -255,9 +223,9 @@ export function BookingForm() {
               </div>
               <div className="slip-row">
                 <dt>Status</dt>
-                <dd className={`slip-status${submitted ? " is-ready" : ""}`}>
+                <dd className={`slip-status${ready ? " is-ready" : ""}`}>
                   <span className="slip-status-dot" aria-hidden="true" />
-                  {submitted ? "Ready to send" : "Awaiting details"}
+                  {ready ? "Ready to send" : "Awaiting details"}
                 </dd>
               </div>
             </dl>
