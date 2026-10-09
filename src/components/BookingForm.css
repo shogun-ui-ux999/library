@@ -1,5 +1,7 @@
 /* ----------------------------------------------------------
-   Reserve — booking form for the Study Shift Passes
+   Reserve — the printed "admittance slip" for a study shift.
+   Hairline ticket borders, four tactile shift pills, a live
+   preview stub, and a tungsten-amber focus language.
 ---------------------------------------------------------- */
 
 .reserve {
@@ -11,50 +13,195 @@
 }
 
 .reserve-card {
+  --slip-pad: clamp(1.4rem, 3vw, 2.2rem);
+  position: relative;
   margin-top: clamp(2rem, 4.5vh, 3rem);
-  max-width: 780px;
-  padding: clamp(1.4rem, 3vw, 2.2rem);
+  max-width: 820px;
+  padding: var(--slip-pad);
   border: 1px solid var(--line);
-  border-radius: 16px;
-  background:
-    linear-gradient(160deg, rgba(30, 30, 36, 0.9) 0%, rgba(17, 17, 20, 0.94) 100%);
+  border-radius: 6px;
+  background: linear-gradient(
+    165deg,
+    rgba(30, 30, 36, 0.92) 0%,
+    rgba(14, 14, 17, 0.96) 100%
+  );
   box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.9);
 }
 
-/* ---------- Form ---------- */
-.reserve-form {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.1rem 1.2rem;
+/* Printed amber rule along the top edge of the ticket */
+.reserve-card::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(90deg, var(--amber) 0%, rgba(229, 169, 59, 0) 70%);
+  pointer-events: none;
 }
 
-.rf-field {
+/* ---------- Serial stamp ---------- */
+.slip-serial {
+  position: absolute;
+  top: 1.05rem;
+  right: 1.1rem;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.34rem 0.62rem;
+  border: 1px dashed rgba(229, 169, 59, 0.45);
+  border-radius: 3px;
+  color: var(--silver-dim);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transform: rotate(-1.5deg);
+}
+.slip-serial span {
+  color: var(--amber-soft);
+}
+
+/* ---------- Form shell ---------- */
+.slip-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  margin-top: 2.6rem; /* clears the serial stamp */
+}
+
+.slip-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+}
+.slip-optional {
+  color: var(--silver-ghost);
+  letter-spacing: 0.12em;
+}
+
+/* ---------- Tactile shift pills ---------- */
+.slip-shift .slip-label {
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.slip-pills {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.slip-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line-bright);
+  border-radius: 5px;
+  background: rgba(10, 10, 11, 0.55);
+  color: var(--parchment);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.slip-pill:hover {
+  border-color: var(--amber-line);
+  transform: translateY(-1px);
+}
+.slip-pill.is-active {
+  border-color: var(--amber);
+  background: linear-gradient(
+    165deg,
+    rgba(229, 169, 59, 0.16) 0%,
+    rgba(229, 169, 59, 0.04) 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(229, 169, 59, 0.35),
+    0 12px 32px -18px rgba(229, 169, 59, 0.85);
+}
+
+.slip-pill-emoji {
+  flex: none;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.slip-pill-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.16rem;
+  min-width: 0;
+}
+.slip-pill-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.slip-pill-range {
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--silver-dim);
+  transition: color 0.3s ease;
+}
+.slip-pill.is-active .slip-pill-range {
+  color: var(--amber-soft);
+}
+
+/* Glowing status lamp */
+.slip-pill-lamp {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: var(--silver-ghost);
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.slip-pill.is-active .slip-pill-lamp {
+  background: var(--amber);
+  box-shadow: 0 0 10px 2px rgba(229, 169, 59, 0.65);
+}
+
+.slip-hint {
+  margin-top: 0.5rem;
+  color: var(--amber-soft);
+  font-size: 0.8rem;
+}
+
+/* ---------- Fields ---------- */
+.slip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.1rem;
+}
+
+.slip-field {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   min-width: 0;
 }
-.rf-wide {
+.slip-field-wide {
   grid-column: 1 / -1;
 }
 
-.rf-field label {
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--silver-dim);
-}
-.rf-optional {
-  color: var(--silver-ghost);
-  letter-spacing: 0.12em;
-}
-
-.rf-field input,
-.rf-field select {
+.slip-field input {
   width: 100%;
   padding: 0.8rem 0.95rem;
   border: 1px solid var(--line-bright);
-  border-radius: 9px;
+  border-radius: 5px;
   background: rgba(10, 10, 11, 0.72);
   color: var(--parchment);
   font-family: var(--font-sans);
@@ -63,110 +210,179 @@
     border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
-
-.rf-field input::placeholder {
+.slip-field input::placeholder {
   color: var(--silver-ghost);
 }
-
-.rf-field select {
-  appearance: none;
-  -webkit-appearance: none;
-  padding-right: 2.4rem;
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--amber) 50%),
-    linear-gradient(135deg, var(--amber) 50%, transparent 50%);
-  background-position:
-    calc(100% - 18px) calc(50% + 1px),
-    calc(100% - 13px) calc(50% + 1px);
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
-  cursor: pointer;
+.slip-field input[type="date"] {
+  color-scheme: dark;
 }
-.rf-field select:invalid,
-.rf-field select option[value=""] {
-  color: var(--silver-ghost);
-}
-.rf-field select option {
-  color: var(--parchment);
-  background: var(--midnight);
-}
-
-.rf-field input:focus,
-.rf-field select:focus {
+/* Warm tungsten outline on focus */
+.slip-field input:focus {
   outline: none;
   border-color: var(--amber);
   box-shadow: 0 0 0 3px rgba(229, 169, 59, 0.16);
 }
 
-.rf-submit {
-  grid-column: 1 / -1;
-  justify-content: center;
-  margin-top: 0.4rem;
-}
-
-.rf-note-text {
-  grid-column: 1 / -1;
-}
-
-/* ---------- Confirmation ---------- */
-.reserve-done {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.9rem;
-}
-
-.rd-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  border: 1px solid rgba(74, 222, 128, 0.4);
-  border-radius: 50%;
-  background: rgba(74, 222, 128, 0.08);
-  color: var(--open-green);
-}
-
-.rd-title {
-  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
-  line-height: 1.2;
-  color: var(--parchment);
-}
-
-.rd-sub {
-  max-width: 52ch;
-  color: var(--silver);
-  font-weight: 300;
-  line-height: 1.7;
-}
-.rd-sub strong {
-  color: var(--amber-soft);
-  font-weight: 500;
-}
-
-.rd-actions {
+/* ---------- Actions ---------- */
+.slip-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.9rem 1.1rem;
-  margin-top: 0.4rem;
+  align-items: center;
+  gap: 0.8rem 1rem;
+}
+.slip-send,
+.slip-wa {
+  justify-content: center;
 }
 
-.rd-again {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 0.75rem;
-  padding: 0;
+.slip-ready {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--open-green);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+}
+.slip-ready svg {
+  flex: none;
+}
+.slip-ready strong {
+  color: var(--amber-soft);
+  font-weight: 600;
+}
+
+.slip-note {
+  max-width: 56ch;
+}
+
+/* ---------- Perforation ---------- */
+.slip-tear {
+  position: relative;
+  margin: clamp(1.5rem, 3vw, 2.1rem) calc(var(--slip-pad) * -1);
+  border-top: 1px dashed rgba(255, 255, 255, 0.14);
+}
+.slip-tear::before,
+.slip-tear::after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--obsidian);
+  border: 1px solid var(--line);
+}
+.slip-tear::before {
+  left: -7px;
+}
+.slip-tear::after {
+  right: -7px;
+}
+
+/* ---------- Live preview stub ---------- */
+.slip-preview {
+  padding: 1rem 1.1rem 1.05rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(10, 10, 11, 0.6);
+}
+
+.slip-preview-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line);
+}
+.slip-preview-title {
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+}
+.slip-preview-serial {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: rgba(229, 169, 59, 0.6);
+}
+
+.slip-preview-rows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem 1.2rem;
+  margin-top: 0.9rem;
+}
+.slip-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+.slip-row dt {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--silver-ghost);
+}
+.slip-row dd {
+  color: var(--parchment);
+  font-size: 0.9rem;
+}
+
+.slip-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--silver-dim);
+  transition: color 0.3s ease;
+}
+.slip-status-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--silver-ghost);
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.slip-status.is-ready {
+  color: var(--amber-soft);
+}
+.slip-status.is-ready .slip-status-dot {
+  background: var(--amber);
+  box-shadow: 0 0 10px 2px rgba(229, 169, 59, 0.6);
 }
 
 /* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .slip-pills {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 640px) {
-  .reserve-form {
+  .slip-grid,
+  .slip-preview-rows {
     grid-template-columns: 1fr;
   }
-  .rd-actions .btn {
+  .slip-actions .btn {
     width: 100%;
-    justify-content: center;
+  }
+  .slip-serial {
+    letter-spacing: 0.14em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slip-pill,
+  .slip-pill-lamp,
+  .slip-pill-range,
+  .slip-status,
+  .slip-status-dot {
+    transition: none;
   }
 }

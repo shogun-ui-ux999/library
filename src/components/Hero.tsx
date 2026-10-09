@@ -3,8 +3,6 @@ import { useRanchiClock } from "../hooks/useRanchiClock";
 import { useMagnetic } from "../hooks/useMagnetic";
 import { Reveal, Line } from "./Reveal";
 import { ArrowRight, Phone } from "./Icons";
-import { StudyShiftPasses } from "./ShiftPasses";
-import type { ShiftKey } from "./ShiftPasses";
 import { Link } from "../router";
 import "./Hero.css";
 
@@ -30,7 +28,7 @@ function TickRing() {
   );
 }
 
-export function Hero({ onReserve }: { onReserve?: (key: ShiftKey) => void }) {
+export function Hero() {
   const { time, date } = useRanchiClock();
   const primary = useMagnetic<HTMLAnchorElement>(0.24, 10);
   const secondary = useMagnetic<HTMLAnchorElement>(0.2, 8);
@@ -136,9 +134,6 @@ export function Hero({ onReserve }: { onReserve?: (key: ShiftKey) => void }) {
           Explore Membership
         </Link>
       </Reveal>
-
-      {/* Three tactile Study Shift Passes — tilt, flip, reserve */}
-      <StudyShiftPasses onReserve={(key) => onReserve?.(key)} />
 
       <div className="hero-scroll-cue mono" aria-hidden="true">
         <span>Scroll</span>
